@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saffron & Sage - Reservations</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    {% extends "base.html" %}
+
+    {% block content %}
+
+    <section class="reservations-section">
+        <h1>Reserve a Table</h1>
+
+        {% if reservationsMessage %}
+
+        <p style="color: green; text-align: center;">{{reservationsMessage}}</p>
+
+        {% endif %}
+
+        <form class="reservation-form" method="POST" action="/reservations">
+            <div class="formatting">
+                <div class="form-group ">
+                    <label>First name <span class="asterisk">*</span></label>
+                    <input type="text" placeholder="John" name="first_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Last name <span class="asterisk">*</span></label>
+                    <input type="text" placeholder="Ross" name="last_name" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Email <span class="asterisk">*</span></label>
+                    <input type="email" placeholder="johnross123@email.com" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Date <span class="asterisk">*</span></label>
+                    <input type="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Time <span class="asterisk">*</span></label>
+                    <input type="time" name="time" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Guests <span class="asterisk">*</span></label>
+                    <input type="number" min="1" max="12" placeholder="1-12" name="guests" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Seating</label>
+
+                    <select name="seating">
+                        <option value="indoor">Indoor</option>
+                        <option value="outdoor">Outdoor</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="special">Occasion</label>
+
+                <div class="radio-group">
+                    <label><input type="radio" name="occasion" value="none"></label> <span class="radio-button">None</span>
+                    <label><input type="radio" name="occasion" value="birthday"></label> <span class="radio-button">Birthday</span>
+                    <label><input type="radio" name="occasion" value="anniversary"></label> <span class="radio-button">Anniversary</span>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label>Special Requests</label>
+                <textarea maxlength="300" placeholder="Allergies, high chair..." name="special_requests"></textarea>
+            </div>
+
+            <div class="form-group checkbox">
+                <input type="checkbox" name="terms" required>
+                <label>I agree to the booking terms</label>
+            </div>
+
+            <div class="form-group full-width">
+                <button type="submit">Confirm Reservation</button>
+            </div>
+        </form>
+    </section>
+
+    {% endblock %}
+</body>
+
+</html>

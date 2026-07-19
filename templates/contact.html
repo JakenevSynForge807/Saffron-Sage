@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saffron & Sage - Contact Us</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    {% extends "base.html" %}
+
+    {% block content %}
+
+    <div class="contact-content">
+        <div class="contact-left">
+            <h2>Send a Message</h2>
+
+            {% if contactMessage %}
+
+            <p style="color: green; text-align: center;">{{contactMessage}}</p>
+
+            {% endif %}
+
+            <form class="contact-form" method="POST" action="/contact">
+                <div class="contact-form-group">
+                    <label>Name</label>
+                    <input type="text" placeholder="John Ross" name="name" required>
+                </div>
+
+                <div class="contact-form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="johnross123@email.com" name="email" required>
+                </div>
+
+                <div class="contact-form-group">
+                    <label>Message</label>
+                    <textarea maxlength="300" placeholder="Your message..." name="message" required></textarea>
+                </div>
+
+                <div>
+                    <button type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="contact-right">
+            <h2>Find Us</h2>
+
+            <div>
+                <h1 class="icon">🗺️</h1>
+            </div>
+
+            <div>
+                <p>📍 12 High Street, London</p>
+                <p>📞 020 1234 5678</p>
+                <p>✉️ hello@saffron.com</p>
+                <p>🕑 Tue-Sun, 5pm-11pm</p>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+</body>
+
+</html>

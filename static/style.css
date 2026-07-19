@@ -1,0 +1,632 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI';
+    color: #2d3748;
+    line-height: 1.6;
+}
+
+.navbar {
+    background: #1e3a2f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 50px;
+}
+
+.logo {
+    color: #c9a227;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+.navlinks {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+}   
+
+.navlinks a {
+    color: #c5d6cc;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.navlinks a:hover {
+    color: #c9a227;
+}
+
+.navlinks a.current{
+    color: #c9a227;
+}
+
+.navlinks a.current:hover{
+    color: #d16c00;
+}
+
+.footer .current{
+    color: #c9a227;
+}
+
+.footer .current:hover{
+    color: #d16c00;
+}
+
+.btn {
+    display: inline-block;
+    background: #c9a227;
+    color: #1e3a2f;
+    text-decoration: none;
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #d16c00;
+}
+
+.hero {
+    background: #284a38;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero h3 {
+    color: #c9a227;
+    font-weight: 400;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    color: #FFFFFF;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero p {
+    color: white;
+    font-weight: 350;
+    font-size: 1.2rem;
+    letter-spacing: 0.7px;
+    margin-bottom: 20px;
+}
+
+.hero a {
+    display: inline-block;
+    background: #c9a227;
+    color: #1e3a2f;
+    text-decoration: none;
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    margin: 0 20px;
+}
+
+.hero a:hover {
+    background: #d16c00;
+}
+
+.offers {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.section-title {
+    color: #c9a227;
+    font-size: 25px;
+    font-weight: 450;
+    letter-spacing: 5px;
+}
+
+.offers h2 {
+    font-size: 40px;
+    margin-top: -15px;
+    margin-bottom: 30px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.card {
+    border: 2px solid lightgray;
+    border-radius: 20px;
+    width: 250px;
+    height: 350px;
+}
+
+.cards .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef5f0;
+    border: 2px solid #eef5f0;
+    border-radius: 20px;
+    margin: 30px 30px;
+    height: 120px;
+    font-size: 40px;
+}
+
+.cards h3 {
+    font-weight: 700;
+    font-size: 22px;
+    font-family: sans-serif;
+    margin-bottom: -10px;
+}
+
+.cards p {
+    font-size: 19px;
+    color: rgb(112, 121, 150);
+    padding: 10px 10px;
+}
+
+.footer {
+    background: #16291f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 50px;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 50px;
+}
+
+.footer-links div {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer a,
+.footer p {
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    padding: 2px;
+}
+
+.footer a:hover {
+    color: #c9a227;
+}
+
+.footer-logo {
+    color: #c9a227;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+.footer-right {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+}
+
+.menu {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.menu-top h3 {
+    color: #c9a227;
+    font-size: 25px;
+    font-weight: 450;
+    letter-spacing: 5px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.menu-top h2 {
+    color: black;
+    font-size: 40px;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.menu-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 50px;
+}
+
+.menu-table th {
+    background: #1e3a2f;
+    color: #c9a227;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: left;
+    padding: 15px 18px;
+}
+
+.menu-table th:last-child {
+    text-align: right;
+}
+
+.menu-table .table-subheading td {
+    background: #faf8f0;
+    color: #c9a227;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.even {
+    background: #f7faf8;
+}
+
+.dish-name {
+    font-weight: 700;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.ingredients {
+    color: #94a3a0;
+    padding-left: 20px;
+    font-size: 17px;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.menu-table td {
+    border-bottom: 1px solid #eef2ef;
+    padding: 10px;
+}
+
+.reservations-section h1 {
+    text-align: center;
+    margin: 20px 0 5px 0;
+}
+
+.reservation-form .formatting {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.reservation-form {
+    border: 3px solid #e2e8f0;
+    border-radius: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    padding: 30px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.reservation-form .asterisk {
+    color: #d98a7b;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    padding-bottom: 5px;
+}
+
+.reservation-form button {
+    background: #c9a227;
+    color: #1e3a2f;
+    font-weight: 700;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    width: 100%;
+}
+
+.reservation-form button:hover {
+    background-color: #d16c00;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    border: 3px solid #cdd9d3;
+    border-radius: 5px;
+    padding: 10px;
+    background: #fbfdfc;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.reservation-form textarea {
+    resize: vertical;
+}
+
+.reservation-form .checkbox {
+    grid-column: span 2;
+    display: flex;
+    gap: 10px;
+    padding: 6px 0 20px 0;
+}
+
+.reservation-form .checkbox input {
+    width: auto;
+}
+
+.radio-group {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.radio-button {
+    margin-right: 30px;
+    margin-left: 7px;
+}
+
+.special {
+    margin-top: 15px;
+    margin-bottom: -5px;
+}
+
+.top-content{
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    margin-top: 50px;
+    align-items: center;
+}
+
+.top-content .icon{
+    background-color: #eef5f0;
+    border-radius: 15px;
+    margin-right: 20px;
+    font-size: 60px;
+    padding: 30px 100px 45px 100px;
+}
+
+.top-content h3{
+    color: #c9a227;
+    font-size: 25px;
+    font-weight: 450;
+    letter-spacing: 5px;
+}
+
+.top-content h2{
+    font-size: 35px;
+    margin-top: -15px;
+    margin-bottom: 30px;
+}
+
+.top-content p{
+    font-size: 17px;
+    color: rgb(112, 121, 150);
+    margin-top: -35px;
+}
+
+.bottom-content{
+    text-align: center;
+    padding: 50px 0;
+}
+
+.bottom-title{
+    font-size: 30px;
+    margin-top: -15px;
+    margin-bottom: 10px;
+}
+
+.about-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.about-card {
+    border: 2px solid lightgray;
+    border-radius: 20px;
+    width: 250px;
+    height: 250px;
+}
+
+.about-cards .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef5f0;
+    border: 2px solid #eef5f0;
+    border-radius: 20px;
+    margin: 30px 30px;
+    height: 120px;
+    font-size: 40px;
+}
+
+.about-cards h3 {
+    font-weight: 700;
+    font-size: 22px;
+    font-family: sans-serif;
+}
+
+.contact-content{
+    display: flex;
+    justify-content: center;
+    gap:40px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.contact-form{
+    border: 3px solid #cdd9d3;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 20px;
+}
+
+.contact-form label{
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.contact-form input,
+.contact-form textarea{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 30px;
+    margin-top: 5px;
+    border: 2px solid #cdd9d3;
+    border-radius: 10px;
+    background-color: #fbfdfc;
+    font-size: 16px;
+}
+
+.contact-form button{
+    background: #c9a227;
+    color: #1e3a2f;
+    font-weight: 700;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    width: 100%;
+}
+
+.contact-form button:hover{
+    background-color: #d16c00;
+}
+
+.contact-left h2{
+    text-align: center;
+}
+
+.contact-form textarea{
+    resize: vertical;
+}
+
+.contact-right .icon{
+    text-align: center;
+    background: #eef5f0;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 50px;
+    padding: 30px 100px 30px 100px;
+}
+
+.contact-right p{
+    font-size: 17px;
+}
+
+.login{
+    color: #c5d6cc;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-right: -70px;
+}
+
+.login:hover{
+    color:#c9a227;
+    cursor: pointer;
+}
+
+@media (max-width: 600px){
+
+    .navbar{
+        flex-direction: column;
+        gap: 20px;
+        padding: 25px 20px;
+        text-align: center;
+    }
+
+    .navlinks{
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .hero h1{
+        font-size: 2rem;
+    }
+
+    .hero a{
+        margin: 8px 0;
+    }
+
+    .cards,
+    .about-cards{
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .footer{
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .footer-right{
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .top-content{
+        flex-direction: column;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .top-content .icon{
+        margin-right: 0;
+        margin-bottom: 20px;
+        padding: 30px 80px;
+    }
+
+    .contact-content{
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    .contact-right .icon{
+        padding: 30px 80px;
+    }
+
+    .reservation-form .formatting{
+        grid-template-columns: 1fr;
+    }
+
+    .full-width,
+    .reservation-form .checkbox{
+        grid-column: span 1;
+    }
+
+}
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saffron & Sage - Homepage</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    {% extends "base.html" %}
+
+    {% block content %}
+
+    <section class="hero">
+        <h3>FINE DINING · EST. 2026</h3>
+        <h1>Fresh, Seasonal, <br>Unforgettable</h1>
+        <p>Modern British cuisine made with locally sourced <br> ingredients in the heart of the city.</p>
+
+        <a href="menu.html">View Our Menu</a>
+        <a href="reservations.html">Reserve a Table</a>
+
+    </section>
+
+    <section class="offers">
+        <h3 class="section-title">WHY CHOOSE US</h3>
+        <h2>What We Offer</h2>
+
+        <div class="cards">
+            <div class="card">
+                <h1 class="icon">🍽️</h1>
+                <h3>Seasonal Menu</h3>
+                <p>Dishes that change with the seasons.</p>
+            </div>
+
+            <div class="card">
+                <h1 class="icon">🌱</h1>
+                <h3>Local Produce</h3>
+                <p>Sourced from nearby farms daily.</p>
+            </div>
+
+            <div class="card">
+                <h1 class="icon">⭐</h1>
+                <h3>Award Winning</h3>
+                <p>Rated 5 stars by our guests.</p>
+            </div>
+        </div>
+    </section>
+
+    {% endblock %}
+</body>
+
+</html>

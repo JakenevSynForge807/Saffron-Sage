@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saffron & Sage - Menu</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    {% extends "base.html" %}
+
+    {% block content %}
+
+    <section class="menu">
+        <div class="menu-top">
+            <h3>OUR KITCHEN</h3>
+            <h2>Full Menu</h2>
+        </div>
+
+        <table class="menu-table">
+            <thead">
+                <tr>
+                    <th class="">DISH</th>
+                    <th>PRICE</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    {% for category, dishes in dishes.items() %}
+
+                    <tr class="table-subheading">
+                        <td colspan="2">{{category}}</td>
+                    </tr>
+
+                    {% for dish in dishes %}
+
+                    <tr class="even dish">
+                        <td><span class="dish-name">{{dish.name}}</span><br> <span class="ingredients">{{dish.desc}}</span></td>
+                        <td class="price">£{{dish.price}}</td>
+                    </tr>
+
+                    {% endfor %}
+                    {% endfor %}
+                </tbody>
+
+        </table>
+
+    </section>
+
+    {% endblock %}
+</body>
+
+</html>
