@@ -83,6 +83,27 @@ def contact():
     
     return render_template("contact.html", contactMessage=contactMessage)
 
+@app.route("/signup")
+def signup():
+    # signupMessage = None
+    
+    # if request.method=="POST":
+    #     fullname = request.form["fullname"]
+    #     email = request.form["email"]
+    #     password = request.form["password"]
+    #     role = request.form{"role"}
+        
+    #     conn = db()
+    #     conn.execute("""INSERT INTO signup(fullname, email, password, role)
+    #                 Values(?, ?, ?, ?)""",
+    #                 (fullname, email, password, role)
+    #                 )  
+            
+    #     conn.commit(); conn.close()
+    #     signupMessage = f"Thank you {fullname} for signing up! You may now log into your account."
+    
+    return render_template("signup.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
 
