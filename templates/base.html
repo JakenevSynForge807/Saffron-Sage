@@ -9,17 +9,28 @@
     <nav class="navbar">
         <h2 class="logo">🌿 SAFFRON & SAGE</h2>
 
+        {% set current_path = request.path %}
         <div class="navlinks">
-            <a href="/">Home</a>
-            <a href="/menu">Menu</a>
-            <a href="/reservations">Reservations</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact Us</a>
+            <a href="/" class="{{ 'current' if current_path == '/' else '' }}">Home</a>
+            <a href="/menu" class="{{ 'current' if current_path == '/menu' else '' }}">Menu</a>
+            <a href="/reservations" class="{{ 'current' if current_path == '/reservations' else '' }}">Reservations</a>
+            <a href="/about" class="{{ 'current' if current_path == '/about' else '' }}">About</a>
+            <a href="/contact" class="{{ 'current' if current_path == '/contact' else '' }}">Contact Us</a>
+
+            {% if session.id %}
+                <a href="/dashboard" class="{{ 'current' if current_path == '/dashboard' else '' }}">Dashboard</a>
+                <a href="/logout">Log Out</a>
+            {% endif %}
         </div>
 
-        <a href="/login" class="login">Log In</a>
+        {% if session.id %}
+            <span class="user-info">Welcome, {{ session.fullname }} ({{ session.role }})</span>
+        
+        {% else %}
+            <a href="/login" class="login">Log In</a>
 
-        <a href="/signup" class="btn">Sign up</a>
+            <a href="/signup" class="btn">Sign up</a>
+        {% endif %}
     </nav>
 
     {% block content %}{% endblock %}
@@ -29,12 +40,12 @@
         <div class="footer-right">
             <div class="footer-links">
                 <div>
-                    <a href="/" class="current">Home</a>
-                    <a href="/menu">Menu</a>
+                    <a href="/" class="{{ 'current' if current_path == '/' else '' }}">Home</a>
+                    <a href="/menu" class="{{ 'current' if current_path == '/menu' else '' }}">Menu</a>
                 </div>
                 <div>
-                    <a href="/about">About</a>
-                    <a href="/contact">Contact Us</a>
+                    <a href="/about" class="{{ 'current' if current_path == '/about' else '' }}">About</a>
+                    <a href="/contact" class="{{ 'current' if current_path == '/contact' else '' }}">Contact Us</a>
                 </div>
             </div>
 
