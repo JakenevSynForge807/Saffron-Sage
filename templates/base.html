@@ -16,11 +16,21 @@
             <a href="/reservations" class="{{ 'current' if current_path == '/reservations' else '' }}">Reservations</a>
             <a href="/about" class="{{ 'current' if current_path == '/about' else '' }}">About</a>
             <a href="/contact" class="{{ 'current' if current_path == '/contact' else '' }}">Contact Us</a>
+
+            {% if session.id %}
+                <a href="/dashboard" class="{{ 'current' if current_path == '/dashboard' else '' }}">Dashboard</a>
+                <a href="/logout">Log Out</a>
+            {% endif %}
         </div>
 
-        <a href="/login" class="login">Log In</a>
+        {% if session.id %}
+            <span class="user-info">Welcome, {{ session.fullname }} ({{ session.role }})</span>
+        
+        {% else %}
+            <a href="/login" class="login">Log In</a>
 
-        <a href="/signup" class="btn">Sign up</a>
+            <a href="/signup" class="btn">Sign up</a>
+        {% endif %}
     </nav>
 
     {% block content %}{% endblock %}

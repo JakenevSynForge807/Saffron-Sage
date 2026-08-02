@@ -20,7 +20,15 @@ conn.executescript("""
         name TEXT,
         email TEXT,
         message TEXT
-    )
+    );
+    
+    CREATE TABLE IF NOT EXISTS usersInfo (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        fullname TEXT,
+        email UNIQUE,
+        password TEXT,
+        role TEXT 
+    );
     """)
 
 conn.commit(); conn.close()

@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
 app = Flask(__name__)
+app.secret_key = 'bananas'
 
 def db():
     conn = sqlite3.connect("saffron.db")
@@ -83,26 +85,65 @@ def contact():
     
     return render_template("contact.html", contactMessage=contactMessage)
 
-@app.route("/signup")
+@app.route("/signup", methods=["GET", "POST"])
 def signup():
-    # signupMessage = None
-    
-    # if request.method=="POST":
-    #     fullname = request.form["fullname"]
-    #     email = request.form["email"]
-    #     password = request.form["password"]
-    #     role = request.form{"role"}
+
+    if request.method=="POST":
+        fullname = request.form["fullname"]
+        email = request.form["email"]
+        password = generate_password_hash(request.form["password"])
+        role = request.form["role"]
         
-    #     conn = db()
-    #     conn.execute("""INSERT INTO signup(fullname, email, password, role)
-    #                 Values(?, ?, ?, ?)""",
-    #                 (fullname, email, password, role)
-    #                 )  
+        try:
+            conn = db()
+            conn.execute("""INSERT INTO usersInfo(fullname, email, password, role)
+                        Values(?, ?, ?, ?)""",
+                        (fullname, email, password, role)
+                        )  
             
-    #     conn.commit(); conn.close()
-    #     signupMessage = f"Thank you {fullname} for signing up! You may now log into your account."
+            conn.commit(); conn.close()
+            flash(f"Thank you {fullname}! Your account has been created successfully.", "success")
+            
+            return redirect(url_for("login"))
+            
+        except sqlite3.IntegrityError:
+            flash(f"Error: The email '{email}' is already registered. Please use a different email.", "error")
     
     return render_template("signup.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+
+        conn = db()
+        user = conn.execute("SELECT * FROM usersInfo WHERE email=?", (email,)).fetchone()
+        conn.close()
+
+        if user and check_password_hash(user[3], password):
+            session["id"] = user[0]
+            session["role"] = user[4]
+            session["fullname"] = user[1]
+            return redirect(url_for("dashboard"))
+        else:
+            flash("Invalid email or password.", "error")
+
+    return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
+
+@app.route("/dashboard")
+def dashboard():
+    if "id" not in session:
+        return redirect(url_for("login"))
+
+    role = session["role"]
+
+    return render_template("dashboard.html", role=role)
 
 if __name__ == "__main__":
     app.run(debug=True)

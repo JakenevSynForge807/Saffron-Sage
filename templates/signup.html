@@ -14,58 +14,69 @@
 
     {% block content %}
 
-    <div class="signup-content">
+    <div class="signup-page">
 
-        <section class="signup-top">
-            <h3>🌿 Create account</h3>
-            <p>Join the marketplace</p>
-        </section>
+        <div class="auth">
 
-        {% if contactMessage %}
+            <section class="signup-top">
+                <h3>🌿Create account</h3>
+                <p>Join the marketplace</p>
+            </section>
 
-        <p style="color: green; text-align: center;">{{signupMessage}}</p>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+            <p style="color: green; text-align: center;">{{ message }}</p>
+            {% endfor %}
+            {% endwith %}
 
-        {% endif %}
-
-        <section class="signup-content">
-            <form class="signup-form" method="POST" action="/signup">
-                <div class="signup-form-group">
-                    <label>Full name <span class="asterisk">*</span></label>
-                    <input type="text" placeholder="John Ross" name="name" required>
-                </div>
-
-                <div class="signup-form-group">
-                    <label>Email <span class="asterisk">*</span></label>
-                    <input type="email" placeholder="johnross123@email.com" name="email" required>
-                </div>
-
-                <div class="signup-form-group">
-                    <label>Password <span class="asterisk">*</span></label>
-                    <input type="password" placeholder="#john123" name="password" required>
-                </div>
-
-                <div class="signup-form-group">
-                    <label>I want to...<span class="asterisk">*</span></label>
-
-                    <div class="roles">
-                        <label class="role-opt sel">
-                            <div class="ic">🛒</div><b>Buy food</b><small>Browse &amp; order</small>
-                            <input type="radio" name="role" value="buyer" checked hidden>
-                        </label>
-                        <label class="role-opt">
-                            <div class="ic">🍳</div><b>Sell food</b><small>List &amp; fulfil</small>
-                            <input type="radio" name="role" value="seller" hidden>
-                        </label>
+            <section class="signup-content">
+                <form class="signup-form" method="POST" action="/signup">
+                    <div class="signup-form-group">
+                        <label>Full name <span class="asterisk">*</span></label>
+                        <input type="text" placeholder="John Ross" name="fullname" required>
                     </div>
-                </div>
 
-                <div>
-                    <button type="submit">Create account</button>
-                </div>
+                    <div class="signup-form-group">
+                        <label>Email <span class="asterisk">*</span></label>
+                        <input type="email" placeholder="johnross123@email.com" name="email" required>
+                    </div>
 
-                <p>Already have one? <a href="/login">Log in</a></p>
-            </form>
-        </section>
+                    <div class="signup-form-group">
+                        <label>Password <span class="asterisk">*</span></label>
+                        <input type="password" placeholder="At least 6 characters" name="password" required>
+                    </div>
+
+                    <p class="password-security">Use 6+ characters. We store it scrambled (hashed) — never as plain
+                        text.</p>
+
+                    <div class="signup-form-group-bottom">
+                        <label class="signup-bottom-heading">I want to...<span class="asterisk">*</span></label>
+
+                        <div class="roles">
+                            <label>
+                                <input type="radio" name="role" value="buyer">
+                                <div class="ic">🛒</div>
+                                <b>Buy food</b>
+                                <small>Browse &amp; order</small>
+                            </label>
+                            <label>
+                                <input type="radio" name="role" value="seller">
+                                <div class="ic">🍳</div>
+                                <b>Sell food</b>
+                                <small>List &amp; fulfil</small>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit">Create account</button>
+                    </div>
+
+                    <p class="login-link">Already have one? <a href="/login">Log in</a></p>
+                </form>
+            </section>
+
+        </div>
 
     </div>
 
