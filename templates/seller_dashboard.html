@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="seller-dashboard-page">
+
+    <div class="seller-dashboard">
+
+        <section class="seller-dashboard-top">
+            <h2>SELLER AREA</h2>
+            <h1>Your Dashboard</h1>
+            <p>Manage your dishes and every order that comes in.</p>
+        </section>
+
+        <section class="seller-dashboard-content">
+
+            <div class="seller-dashboard-content-top">
+                <div class="seller-dashboard-content-group">
+                    <p>4</p>
+                    <p>DISHES LISTED</p>
+                </div>
+
+                <div class="seller-dashboard-content-group">
+                    <p>2</p>
+                    <p>PENDING ORDERS</p>
+                </div>
+
+                <div class="seller-dashboard-content-group">
+                    <p>1</p>
+                    <p>IN PROGRESS</p>
+                </div>
+
+                <div class="seller-dashboard-content-group">
+                    <p>£62.50</p>
+                    <p>COMPLETED SALES</p>
+                </div>
+            </div>
+
+            <div class="seller-dashboard-content-bottom">
+
+                <div class="add-dish">
+                    <div class="seller-dashboard-box-header">
+                        <h1>Add a dish</h1>
+                    </div>
+
+                    <form class="seller-dashboard-form" method="POST" action="/seller/add">
+
+                        <div class="dashboard-form-group">
+                            <label>Dish name</label>
+                            <input type="text" name="dishname" placeholder="e.g. Pan-Seared Sea Bass" required>
+                        </div>
+
+                        <div class="dashboard-form-group">
+                            <label>Price (£)</label>
+                            <input type="text" name="dishprice" placeholder="18.00" required>
+                        </div>
+
+                        <button type="submit">Add Dish</button>
+
+                    </form>
+                </div>
+
+                <div class="your-dishes">
+                    <div class="seller-dashboard-box-header">
+                        <h1>Your dishes</h1>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="your-dishes-header">DISH</th>
+                                <th class="your-dishes-header">PRICE</th>
+                                <th class="your-dishes-header"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for dish in my_dishes %}
+
+                            <tr>
+                                <td>{{dish["dishname"]}}</td>
+                                <td>£{{dish["dishprice"]}}</td>
+                                <td>
+                                    <form method="POST" action="/seller/delete/{{dish['id']}}">
+                                        <button type="submit" class="delete-btn">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            {% else %}
+                            <tr>
+                                <td colspan="3" style="text-align: center;">No dishes yet</td>
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="incoming-orders">
+                    <div class="seller-dashboard-box-header">
+                        <h1>Incoming Orders</h1>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>BUYER</th>
+                                <th>DISH</th>
+                                <th>QTY</th>
+                                <th>STATUS</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Aisha</td>
+                                <td>Pan-Seared Sea Bass</td>
+                                <td>1</td>
+                                <td>
+                                    <span class="status-pending">
+                                        Pending
+                                    </span>
+                                </td>
+                                <td>
+                                    <button type="button" class="action-accept">
+                                        Accept
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+</div>
+
+{% endblock %}

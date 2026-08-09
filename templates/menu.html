@@ -21,30 +21,31 @@
         </div>
 
         <table class="menu-table">
-            <thead">
+            <thead>
                 <tr>
-                    <th class="">DISH</th>
+                    <th>DISH</th>
                     <th>PRICE</th>
                 </tr>
-                </thead>
+            </thead>
 
-                <tbody>
-                    {% for category, dishes in dishes.items() %}
+            <tbody>
+                {% for category, dishes in dishes.items() %}
 
-                    <tr class="table-subheading">
-                        <td colspan="2">{{category}}</td>
-                    </tr>
+                <tr class="table-subheading">
+                    <td colspan="2">{{category}}</td>
+                </tr>
 
-                    {% for dish in dishes %}
+                {% for dish in dishes %}
 
-                    <tr class="even dish">
-                        <td><span class="dish-name">{{dish.name}}</span><br> <span class="ingredients">{{dish.desc}}</span></td>
-                        <td class="price">£{{dish.price}}</td>
-                    </tr>
+                <tr class="even dish">
+                    <td><span class="dish-name">{{dish.name}}</span><br> <span class="ingredients">{{dish.desc}}</span>
+                    </td>
+                    <td class="price">£{{dish.price}}</td>
+                </tr>
 
-                    {% endfor %}
-                    {% endfor %}
-                </tbody>
+                {% endfor %}
+                {% endfor %}
+            </tbody>
 
         </table>
 

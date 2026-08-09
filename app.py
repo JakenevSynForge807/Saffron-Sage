@@ -1,9 +1,23 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
+from functools import wraps
 
 app = Flask(__name__)
 app.secret_key = 'bananas'
+
+@app.before_request
+def check_session():
+    protected_routes = ["dashboard", "logout"]
+    if request.endpoint in protected_routes and "id" not in session:
+        return redirect(url_for("login"))
+
+@app.after_request
+def add_response_headers(response):
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
 
 def db():
     conn = sqlite3.connect("saffron.db")
@@ -88,27 +102,41 @@ def contact():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
 
-    if request.method=="POST":
+    if request.method == "POST":
         fullname = request.form["fullname"]
         email = request.form["email"]
         password = generate_password_hash(request.form["password"])
         role = request.form["role"]
-        
+
+        conn = db()
+
         try:
-            conn = db()
-            conn.execute("""INSERT INTO usersInfo(fullname, email, password, role)
-                        Values(?, ?, ?, ?)""",
-                        (fullname, email, password, role)
-                        )  
-            
-            conn.commit(); conn.close()
-            flash(f"Thank you {fullname}! Your account has been created successfully.", "success")
-            
+            conn.execute(
+                """
+                INSERT INTO usersInfo(fullname, email, password, role)
+                VALUES (?, ?, ?, ?)
+                """,
+                (fullname, email, password, role)
+            )
+
+            conn.commit()
+
+            flash(
+                f"Thank you {fullname}! Your account has been created successfully.",
+                "success"
+            )
+
             return redirect(url_for("login"))
-            
+
         except sqlite3.IntegrityError:
-            flash(f"Error: The email '{email}' is already registered. Please use a different email.", "error")
-    
+            flash(
+                f"Error: The email '{email}' is already registered. Please use a different email.",
+                "error"
+            )
+
+        finally:
+            conn.close()
+
     return render_template("signup.html")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -121,10 +149,10 @@ def login():
         user = conn.execute("SELECT * FROM usersInfo WHERE email=?", (email,)).fetchone()
         conn.close()
 
-        if user and check_password_hash(user[3], password):
-            session["id"] = user[0]
-            session["role"] = user[4]
-            session["fullname"] = user[1]
+        if user and check_password_hash(user["password"], password):
+            session["id"] = user["id"]
+            session["fullname"] = user["fullname"]
+            session["role"] = user["role"]
             return redirect(url_for("dashboard"))
         else:
             flash("Invalid email or password.", "error")
@@ -134,17 +162,90 @@ def login():
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("login"))
+    session.modified=True
+    response=make_response(redirect(url_for("login")))
+    response.headers["Cache-Control"]="no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
+
+def login_required(view):
+    @wraps(view)
+    def wrapped(*a, **k):
+        if "id" not in session:
+            return redirect(url_for("login"))
+        return view(*a, **k)
+    return wrapped
+
+def no_cache(view):
+    @wraps(view)
+    def wrapped(*a, **k):
+        response = make_response(view(*a, **k))
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+        return response
+    return wrapped
+
+def seller_only(view):
+    @wraps(view)
+    def wrapped(*a, **k):
+        if session.get("role") != "seller":
+            return "Sellers only.", 403
+        return view(*a, **k)
+    return wrapped
+
+def buyer_only(view):
+    @wraps(view)
+    def wrapped(*a, **k):
+        if session.get("role") != "buyer":
+            return "Buyers only.", 403
+        return view(*a, **k)
+    return wrapped
 
 @app.route("/dashboard")
+@login_required
+@no_cache
 def dashboard():
-    if "id" not in session:
-        return redirect(url_for("login"))
+    if session["role"] == "seller":
+        conn = db()
+        my_dishes = conn.execute("select * from dishesTable where sellerid = ?", (session["id"],)).fetchall()
+        
+        return render_template("seller_dashboard.html", my_dishes=my_dishes)
 
-    role = session["role"]
+    return render_template("buyer_dashboard.html")
 
-    return render_template("dashboard.html", role=role)
+@app.route("/seller/add", methods=["POST"])
+@login_required
+@seller_only
+def add_dish():
+    dishname = request.form["dishname"]
+    dishprice = request.form["dishprice"]
+    
+    conn = db()
+    conn.execute("""INSERT INTO dishesTable(dishname, dishprice, sellerid)
+                 Values(?, ?, ?)""",  
+                 (dishname, dishprice, session["id"])
+                )  
+    
+    conn.commit(); conn.close()
+    flash("Dish added successfully.", "ok")
+    
+    return redirect(url_for("dashboard"))
+
+@app.route("/seller/delete/<int:id>", methods=["POST"])
+@login_required
+@seller_only
+def delete_dish(id):
+    conn=db()
+    conn.execute("""DELETE FROM dishesTable WHERE id=? and sellerid=?""",
+                 (id, session["id"])                 
+                 )
+    
+    conn.commit(); conn.close()
+    flash("Dish removed successfully.", "ok")
+    
+    return redirect(url_for("dashboard"))
 
 if __name__ == "__main__":
     app.run(debug=True)
-
