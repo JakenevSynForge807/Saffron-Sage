@@ -31,7 +31,7 @@ body {
     list-style: none;
     display: flex;
     gap: 50px;
-}   
+}
 
 .navlinks a {
     color: white;
@@ -44,19 +44,19 @@ body {
     color: #c9a227;
 }
 
-.navlinks a.current{
+.navlinks a.current {
     color: #c9a227;
 }
 
-.navlinks a.current:hover{
+.navlinks a.current:hover {
     color: #d16c00;
 }
 
-.footer .current{
+.footer .current {
     color: #c9a227;
 }
 
-.footer .current:hover{
+.footer .current:hover {
     color: #d16c00;
 }
 
@@ -397,7 +397,7 @@ body {
     margin-bottom: -5px;
 }
 
-.top-content{
+.top-content {
     display: flex;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
@@ -405,7 +405,7 @@ body {
     align-items: center;
 }
 
-.top-content .icon{
+.top-content .icon {
     background-color: #eef5f0;
     border-radius: 15px;
     margin-right: 20px;
@@ -413,31 +413,31 @@ body {
     padding: 30px 100px 45px 100px;
 }
 
-.top-content h3{
+.top-content h3 {
     color: #c9a227;
     font-size: 25px;
     font-weight: 450;
     letter-spacing: 5px;
 }
 
-.top-content h2{
+.top-content h2 {
     font-size: 35px;
     margin-top: -15px;
     margin-bottom: 30px;
 }
 
-.top-content p{
+.top-content p {
     font-size: 17px;
     color: rgb(112, 121, 150);
     margin-top: -35px;
 }
 
-.bottom-content{
+.bottom-content {
     text-align: center;
     padding: 50px 0;
 }
 
-.bottom-title{
+.bottom-title {
     font-size: 30px;
     margin-top: -15px;
     margin-bottom: 10px;
@@ -477,28 +477,28 @@ body {
     font-family: sans-serif;
 }
 
-.contact-content{
+.contact-content {
     display: flex;
     justify-content: center;
-    gap:40px;
+    gap: 40px;
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
-.contact-form{
+.contact-form {
     border: 3px solid #cdd9d3;
     border-radius: 10px;
     margin-top: 10px;
     padding: 20px;
 }
 
-.contact-form label{
+.contact-form label {
     font-weight: 700;
     font-size: 20px;
 }
 
 .contact-form input,
-.contact-form textarea{
+.contact-form textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 30px;
@@ -509,7 +509,7 @@ body {
     font-size: 16px;
 }
 
-.contact-form button{
+.contact-form button {
     background: #c9a227;
     color: #1e3a2f;
     font-weight: 700;
@@ -521,19 +521,19 @@ body {
     width: 100%;
 }
 
-.contact-form button:hover{
+.contact-form button:hover {
     background-color: #d16c00;
 }
 
-.contact-left h2{
+.contact-left h2 {
     text-align: center;
 }
 
-.contact-form textarea{
+.contact-form textarea {
     resize: vertical;
 }
 
-.contact-right .icon{
+.contact-right .icon {
     text-align: center;
     background: #eef5f0;
     border-radius: 10px;
@@ -543,11 +543,11 @@ body {
     padding: 30px 100px 30px 100px;
 }
 
-.contact-right p{
+.contact-right p {
     font-size: 17px;
 }
 
-.login{
+.login {
     color: white;
     text-decoration: none;
     font-size: 1.1rem;
@@ -555,12 +555,12 @@ body {
     margin-right: -70px;
 }
 
-.login:hover{
-    color:#c9a227;
+.login:hover {
+    color: #c9a227;
     cursor: pointer;
 }
 
-.signup-page{
+.signup-page {
     min-height: calc(100vh - 60px);
     display: flex;
     align-items: center;
@@ -568,54 +568,54 @@ body {
     padding: 70px;
 }
 
-.auth{
+.auth {
     background: #fff;
-    border-radius:16px;
+    border-radius: 16px;
     box-shadow: 0 4px 18px rgba(30, 58, 47, .08);
     width: 100%;
     max-width: 410px;
     overflow: hidden;
 }
 
-.auth .signup-top{
+.auth .signup-top {
     text-align: center;
     background: #1e3a2f;
     padding: 30px;
 }
 
-.auth .signup-top h3{
-    color:#c9a227;
+.auth .signup-top h3 {
+    color: #c9a227;
     font-size: 25px;
 }
 
-.auth .signup-top p{
+.auth .signup-top p {
     color: white;
     font-size: 15px;
 }
 
-.signup-content{
+.signup-content {
     text-align: center;
     padding: 30px 20px 30px 20px;
 }
 
-.signup-form-group{
+.signup-form-group {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     padding: 0 20px 0 20px;
     margin-top: -10px;
 }
 
-.signup-form-group label{
+.signup-form-group label {
     font-weight: 700;
     text-align: left;
     margin-bottom: 5px;
 }
 
-.signup-page .asterisk{
+.signup-page .asterisk {
     color: #d98a7b;
 }
 
-.password-security{
+.password-security {
     font-size: 13px;
     color: lightslategray;
     font-weight: 600;
@@ -638,18 +638,18 @@ body {
     margin-top: -2px;
 }
 
-.signup-form-group-bottom .signup-bottom-heading{
+.signup-form-group-bottom .signup-bottom-heading {
     font-weight: 700;
     margin-left: -245px;
 }
 
-.auth .roles{
+.auth .roles {
     display: flex;
     gap: 15px;
     margin: 5px 18px 10px;
 }
 
-.auth .roles label{
+.auth .roles label {
     flex: 1;
     border: 1.5px solid #cdd9d3;
     border-radius: 15px;
@@ -661,34 +661,34 @@ body {
     align-items: center;
 }
 
-.auth .roles label:hover{
-    border-color:#c9a227;
-    background:#fff3c9;
+.auth .roles label:hover {
+    border-color: #c9a227;
+    background: #fff3c9;
 }
 
-.auth .roles .ic{
+.auth .roles .ic {
     font-size: 23px;
 }
 
-.auth .roles b{
-    color:#1b5335;
+.auth .roles b {
+    color: #1b5335;
 }
 
-.auth .roles small{
+.auth .roles small {
     font-weight: 700;
-    color:#94a3a0;
+    color: #94a3a0;
 }
 
-.auth .roles input{
+.auth .roles input {
     display: none;
 }
 
-.auth .roles label:has(input:checked){
+.auth .roles label:has(input:checked) {
     border: 2px solid #c9a227;
     background: #f8f5e8;
 }
 
-.auth button{
+.auth button {
     display: inline-block;
     background: #c9a227;
     color: #1e3a2f;
@@ -705,25 +705,25 @@ body {
     margin-bottom: 10px;
 }
 
-.auth button:hover{
-    background:#d16c00;
+.auth button:hover {
+    background: #d16c00;
 }
 
-.login-link{
-    color:#676767;
+.login-link {
+    color: #676767;
 }
 
-.login-link a{
-    color:#34664b;
+.login-link a {
+    color: #34664b;
     text-decoration: none;
     font-weight: 600;
 }
 
-.login-link a:hover{
+.login-link a:hover {
     text-decoration: underline;
 }
 
-.login-page{
+.login-page {
     min-height: calc(100vh - 60px);
     display: flex;
     align-items: center;
@@ -731,7 +731,7 @@ body {
     padding: 70px;
 }
 
-.autho{
+.autho {
     background: #fff;
     border-radius: 16px;
     box-shadow: 0 4px 18px rgba(30, 58, 47, .08);
@@ -740,39 +740,39 @@ body {
     overflow: hidden;
 }
 
-.autho .login-top{
+.autho .login-top {
     text-align: center;
     background: #1e3a2f;
     padding: 30px;
 }
 
-.autho .login-top h3{
-    color:#c9a227;
+.autho .login-top h3 {
+    color: #c9a227;
     font-size: 25px;
 }
 
-.autho .login-top p{
+.autho .login-top p {
     color: white;
     font-size: 15px;
 }
 
-.login-content{
+.login-content {
     text-align: center;
     padding: 30px 20px 30px 20px;
 }
 
-.login-form-group{
+.login-form-group {
     padding: 0 20px;
     margin-bottom: 22px;
 }
 
-.login-form-group label{
+.login-form-group label {
     display: block;
     font-weight: 700;
     text-align: left;
 }
 
-.login-page .asterisk{
+.login-page .asterisk {
     color: #d98a7b;
 }
 
@@ -787,7 +787,7 @@ body {
     margin-top: 8px;
 }
 
-.autho button{
+.autho button {
     background: #c9a227;
     color: #1e3a2f;
     padding: 12px 20px;
@@ -800,25 +800,25 @@ body {
     margin: 0 20px 10px;
 }
 
-.autho button:hover{
-    background:#d16c00;
+.autho button:hover {
+    background: #d16c00;
 }
 
-.signup-link{
-    color:#676767;
+.signup-link {
+    color: #676767;
 }
 
-.signup-link a{
-    color:#34664b;
+.signup-link a {
+    color: #34664b;
     text-decoration: none;
     font-weight: 600;
 }
 
-.signup-link a:hover{
+.signup-link a:hover {
     text-decoration: underline;
 }
 
-.login-error{
+.login-error {
     background: #fce5e1;
     color: #a92f25;
     border-left: 5px solid #c93f32;
@@ -830,75 +830,513 @@ body {
     font-size: 16px;
 }
 
-@media (max-width: 600px){
+.navbar .user-info {
+    color: white;
+}
 
-    .navbar{
+.navbar .user-info span {
+    color: #c9a227;
+    font-weight: 700;
+}
+
+.seller-dashboard-page {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+.seller-dashboard {
+    width: 80%;
+    max-width: 1100px;
+}
+
+.seller-dashboard .seller-dashboard-top h2 {
+    color: #c9a227;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.seller-dashboard .seller-dashboard-top h1 {
+    color: #284a38;
+    font-size: 33px;
+    font-weight: 1000;
+    margin-top: -5px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.seller-dashboard .seller-dashboard-top p {
+    color: #5f817e;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 35px;
+}
+
+.seller-dashboard-content-top {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.seller-dashboard-content-group {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(30, 58, 47, .08);
+    width: 100%;
+    max-width: 410px;
+    padding: 25px;
+}
+
+.seller-dashboard-content-group p:first-child {
+    color: #284a38;
+    font-size: 30px;
+    font-weight: 1000;
+}
+
+.seller-dashboard-content-group p:last-child {
+    color: #717d7b;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.add-dish {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(30, 58, 47, .08);
+    width: 100%;
+    max-width: 930px;
+    margin-bottom: 30px;
+}
+
+.add-dish h1 {
+    color: #284a38;
+    font-size: 23px;
+    font-weight: 700;
+    text-align: left;
+    padding: 7px 0 7px 20px;
+}
+
+.seller-dashboard-box-header {
+    border-bottom: 1px solid #848181;
+    margin-bottom: 20px;
+}
+
+.add-dish .seller-dashboard-form {
+    padding: 0 20px 20px 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 10px;
+    align-items: end;
+}
+
+.add-dish .seller-dashboard-form label {
+    display: block;
+    font-weight: 700;
+    padding-bottom: 5px;
+    color: #284a38;
+}
+
+.add-dish .seller-dashboard-form input {
+    background: #fcfdfe;
+    border: 2px solid #d8e7e0;
+    padding: 12px;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.add-dish .seller-dashboard-form button {
+    background: #c9a227;
+    color: #1e3a2f;
+    font-weight: 800;
+    font-size: 15px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    white-space: nowrap;
+    width: 110px;
+    height: 43px;
+}
+
+.add-dish .seller-dashboard-form button:hover {
+    background: #d16c00;
+}
+
+.your-dishes {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(30, 58, 47, .08);
+    width: 100%;
+    max-width: 930px;
+    margin-bottom: 30px;
+}
+
+.your-dishes h1 {
+    color: #284a38;
+    font-size: 23px;
+    font-weight: 700;
+    text-align: left;
+    padding: 7px 0 7px 20px;
+}
+
+.your-dishes table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: -20px;
+}
+
+.your-dishes thead {
+    background: #f4f7f7;
+}
+
+.your-dishes th {
+    text-align: left;
+    padding: 16px 0 16px 20px;
+    color: #8b959c;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.your-dishes td {
+    padding: 16px 0 16px 20px;
+    border-bottom: 1px solid #ececec;
+}
+
+.your-dishes .delete-btn {
+    background: white;
+    border: 2px solid #c71a2b;
+    color: #c71a2b;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 8px 15px;
+}
+
+.your-dishes .delete-btn:hover {
+    background: #febeb3;
+}
+
+.your-dishes td:last-child,
+.your-dishes th:last-child {
+    text-align: right;
+    width: 180px;
+    padding-right: 30px;
+}
+
+.incoming-orders {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(30, 58, 47, .08);
+    width: 100%;
+    max-width: 930px;
+    margin-bottom: 30px;
+}
+
+.incoming-orders h1 {
+    color: #284a38;
+    font-size: 23px;
+    font-weight: 700;
+    text-align: left;
+    padding: 7px 0 7px 20px;
+}
+
+.incoming-orders table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: -20px;
+    table-layout: fixed;
+}
+
+.incoming-orders thead {
+    background: #f4f7f7;
+}
+
+.incoming-orders th {
+    text-align: left;
+    padding: 16px 0 16px 20px;
+    color: #8b959c;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.incoming-orders td {
+    padding: 16px 0 16px 20px;
+    border-bottom: 1px solid #ececec;
+}
+
+/* Column widths */
+
+.incoming-orders th:nth-child(1),
+.incoming-orders td:nth-child(1) {
+    width: 14%;
+}
+
+.incoming-orders th:nth-child(2),
+.incoming-orders td:nth-child(2) {
+    width: 36%;
+}
+
+.incoming-orders th:nth-child(3),
+.incoming-orders td:nth-child(3) {
+    width: 10%;
+}
+
+.incoming-orders th:nth-child(4),
+.incoming-orders td:nth-child(4) {
+    width: 18%;
+}
+
+.incoming-orders th:nth-child(5),
+.incoming-orders td:nth-child(5) {
+    width: 22%;
+}
+
+.incoming-orders .status-pending {
+    background: #fef3e8;
+    color: #d16c00;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+.incoming-orders .status-completed {
+    background: #e6f4ea;
+    color: #1e3a2f;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+.incoming-orders .status-accepted {
+    background: #e6f4ea;
+    color: #1e3a2f;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+.incoming-orders .action-accept {
+    background: #e6e8f4;
+    color: #1e223a;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.incoming-orders .action-mark-completed {
+    background: #e6f4ea;
+    color: #1e3a2f;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.buyer-dashboard-page {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
+.buyer-dashboard {
+    width: 80%;
+    max-width: 1100px;
+}
+
+.buyer-dashboard .buyer-dashboard-top h2 {
+    color: #c9a227;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.buyer-dashboard .buyer-dashboard-top h1 {
+    color: #284a38;
+    font-size: 33px;
+    font-weight: 1000;
+    margin-top: -5px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.buyer-dashboard .buyer-dashboard-top p {
+    color: #5f817e;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 35px;
+}
+
+/* Container for all dish cards */
+
+.buyer-dashboard-content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* Individual card */
+
+.buyer-dashboard .buyer-dashboard-content {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(30, 58, 47, .08);
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Top image section */
+
+.buyer-dashboard .buyer-dashboard-content p:first-child {
+    background: #eef5f0;
+    font-size: 42px;
+    text-align: center;
+    padding: 55px 0;
+    margin: 0;
+}
+
+.buyer-dashboard .buyer-dashboard-content h2 {
+    color: #284a38;
+    font-size: 22px;
+    font-weight: 700;
+    padding: 22px 22px 0;
+}
+
+.buyer-dashboard .buyer-dashboard-content h3 {
+    color: #c9a227;
+    font-size: 21px;
+    font-weight: 1000;
+    padding: 0 22px;
+    margin-top: -5px;
+}
+
+.buyer-dashboard .buyer-dashboard-content p {
+    color: #5f817e;
+    font-size: 15px;
+    padding: 0 22px 18px;
+}
+
+.buyer-dashboard .buyer-dashboard-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 22px 22px;
+}
+
+.buyer-dashboard .buyer-dashboard-form input {
+    width: 70px;
+    border: 1.5px solid #cdd9d3;
+    border-radius: 9px;
+    padding: 12px;
+    background: #fbfdfc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.buyer-dashboard .buyer-dashboard-form button {
+    background: #c9a227;
+    color: #1e3a2f;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.buyer-dashboard .buyer-dashboard-form button:hover {
+    background: #d16c00;
+}
+
+@media (max-width: 600px) {
+
+    .navbar {
         flex-direction: column;
         gap: 20px;
         padding: 25px 20px;
         text-align: center;
     }
 
-    .navlinks{
+    .navlinks {
         flex-direction: column;
         gap: 15px;
         align-items: center;
     }
 
-    .hero h1{
+    .hero h1 {
         font-size: 2rem;
     }
 
-    .hero a{
+    .hero a {
         margin: 8px 0;
     }
 
     .cards,
-    .about-cards{
+    .about-cards {
         grid-template-columns: 1fr;
         justify-items: center;
     }
 
-    .footer{
+    .footer {
         flex-direction: column;
         gap: 30px;
         text-align: center;
     }
 
-    .footer-right{
+    .footer-right {
         flex-direction: column;
         gap: 30px;
     }
 
-    .top-content{
+    .top-content {
         flex-direction: column;
         text-align: center;
         padding: 0 20px;
     }
 
-    .top-content .icon{
+    .top-content .icon {
         margin-right: 0;
         margin-bottom: 20px;
         padding: 30px 80px;
     }
 
-    .contact-content{
+    .contact-content {
         flex-direction: column;
         padding: 0 20px;
     }
 
-    .contact-right .icon{
+    .contact-right .icon {
         padding: 30px 80px;
     }
 
-    .reservation-form .formatting{
+    .reservation-form .formatting {
         grid-template-columns: 1fr;
     }
 
     .full-width,
-    .reservation-form .checkbox{
+    .reservation-form .checkbox {
         grid-column: span 1;
     }
 
 }
-

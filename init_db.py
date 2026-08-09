@@ -29,6 +29,13 @@ conn.executescript("""
         password TEXT,
         role TEXT 
     );
+    
+    CREATE TABLE IF NOT EXISTS dishesTable (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        dishname TEXT,
+        dishprice REAL,
+        sellerid INTEGER
+    );
     """)
 
 conn.commit(); conn.close()
