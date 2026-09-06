@@ -1,0 +1,5 @@
+<ul class="order-items">
+    {% for item in order['items'] %}
+    <li>{{ item['dish'] }} <span class="item-quantity">&times; {{ item['quantity'] }}</span></li>
+    {% endfor %}
+</ul>

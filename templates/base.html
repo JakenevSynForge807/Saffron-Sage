@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <title>Saffron &amp; Sage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
     <meta http-equiv="Pragma" content="no-cache">
@@ -14,36 +17,43 @@
 
         {% set current_path = request.path %}
 
-        <div class="navlinks">
+        {% if not session.id %}
 
-            {% if session.id %}
-
-            <a href="/dashboard" class="{{ 'current' if current_path == '/dashboard' else '' }}">Dashboard</a>
-            <a href="/ai" class="{{ 'current' if current_path == '/ai' else '' }}">AI Assistant</a>
-            
-            {% endif %}
-
-            {% if not session.id %}
+        <div class="navlinks-logged-out">
 
             <a href="/" class="{{ 'current' if current_path == '/' else '' }}">Home</a>
             <a href="/menu" class="{{ 'current' if current_path == '/menu' else '' }}">Menu</a>
             <a href="/reservations" class="{{ 'current' if current_path == '/reservations' else '' }}">Reservations</a>
             <a href="/about" class="{{ 'current' if current_path == '/about' else '' }}">About</a>
-            <a href="/contact" class="{{ 'current' if current_path == '/contact' else '' }}">Contact Us</a>
+            <a href="/contactus" class="{{ 'current' if current_path == '/contactus' else '' }}">Contact Us</a>
 
-            {% elif session.role == "buyer" %}
+        </div>
 
-            <a href="/browse" class="{{ 'current' if current_path == '/menu' else '' }}">Browse Dishes</a>
+        {% else %}
+
+        <div class="navlinks-logged-in">
+
+            <a href="/dashboard" class="{{ 'current' if current_path == '/dashboard' else '' }}">Dashboard</a>
+            <span class="nav-coming-soon">AI Assistant</span>
+
+            {% if session.role == "buyer" %}
+
+            <a href="/yourcart" class="{{ 'current' if current_path == '/yourcart' else '' }}">🛒 Your Cart</a>
             <a href="/myorders" class="{{ 'current' if current_path == '/myorders' else '' }}">My Orders</a>
+            <a href="/checkout" class="{{ 'current' if current_path == '/checkout' else '' }}">Checkout</a>
 
             {% elif session.role == "admin" %}
 
             {% elif session.role == "seller" %}
+            <a href="{{ url_for('seller_history') }}" class="{{ 'current' if current_path == '/seller/history' else '' }}">Order History</a>
 
             {% endif %}
 
         </div>
 
+        {% endif %}
+
+        <div class="nav-account">
         {% if session.id %}
 
         <span class="user-info">
@@ -59,54 +69,56 @@
 
         {% endif %}
 
+        </div>
     </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <p class="seller-notice {{ category }}" role="status">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
 
     {% block content %}{% endblock %}
 
-    <footer class="footer">
-        <h2 class="footer-logo">🌿 SAFFRON & SAGE</h2>
-        <div class="footer-right">
-            <div class="footer-links">
-                {% if session.id %}
+    <footer>
+        {% if not session.id %}
+        <div class="footer">
 
-                <a href="/dashboard" class="{{ 'current' if current_path == '/dashboard' else '' }}">Dashboard</a>
-                <a href="/ai" class="{{ 'current' if current_path == '/ai' else '' }}">AI Assistant</a>
-
-                {% endif %}
-
-                {% if not session.id %}
-
-                <div>
-                    <a href="/" class="{{ 'current' if current_path == '/' else '' }}">Home</a>
-                    <a href="/menu" class="{{ 'current' if current_path == '/menu' else '' }}">Menu</a>
-                </div>
-                <div>
-                    <a href="/about" class="{{ 'current' if current_path == '/about' else '' }}">About</a>
-                    <a href="/contact" class="{{ 'current' if current_path == '/contact' else '' }}">Contact Us</a>
+            <h2 class="footer-logo">🌿 SAFFRON & SAGE</h2>
+            <div class="footer-right">
+                <div class="footer-links">
+                    <div>
+                        <a href="/" class="{{ 'current' if current_path == '/' else '' }}">Home</a>
+                        <a href="/menu" class="{{ 'current' if current_path == '/menu' else '' }}">Menu</a>
+                    </div>
+                    <div>
+                        <a href="/about" class="{{ 'current' if current_path == '/about' else '' }}">About</a>
+                        <a href="/contactus" class="{{ 'current' if current_path == '/contactus' else '' }}">Contact Us</a>
+                    </div>
                 </div>
 
-                {% elif session.role == "buyer" %}
-
-                <a href="/browse" class="{{ 'current' if current_path == '/menu' else '' }}">Browse Dishes</a>
-                <a href="/myorders" class="{{ 'current' if current_path == '/myorders' else '' }}">My Orders</a>
-
-                {% elif session.role == "admin" %}
-
-                {% elif session.role == "seller" %}
-
-                {% endif %}
-
+                <div class="footer-contact-info">
+                    <p>📍 12 High St</p>
+                    <p>📞 020 1234</p>
+                </div>
             </div>
 
-            <div class="footer-contact-info">
-                <p>📍 12 High St</p>
-                <p>📞 020 1234</p>
-            </div>
         </div>
+
+        {% elif session.id %}
+        <div class="footer-logged-in">
+            <h2 class="footer-logo">🌿 SAFFRON & SAGE</h2>
+        </div>
+
+        {% endif %}
     </footer>
 
     <script>
-        window.addEventListener('pageshow', function(event) {
+        window.addEventListener('pageshow', function (event) {
             if (event.persisted || (window.performance && window.performance.getEntriesByType('navigation')[0]?.type === 'back_forward')) {
                 window.location.reload();
             }

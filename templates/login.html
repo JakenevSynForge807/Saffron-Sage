@@ -1,61 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saffron & Sage - Log in</title>
+{% block content %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+<div class="login-page">
 
-<body>
-    {% extends "base.html" %}
+    <div class="autho">
 
-    {% block content %}
+        <section class="login-top">
+            <h3>🌿Welcome back</h3>
+            <p>Log in to your account</p>
+        </section>
 
-    <div class="login-page">
 
-        <div class="autho">
 
-            <section class="login-top">
-                <h3>🌿Welcome back</h3>
-                <p>Log in to your account</p>
-            </section>
+        <section class="login-content">
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% for category, message in messages %}
-            <p style="color: green; text-align: center;">{{ message }}</p>
-            {% endfor %}
-            {% endwith %}
+            <form class="login-form" method="POST" action="/login">
+                <div class="login-form-group">
+                    <label for="email">Email <span class="asterisk">*</span></label>
+                    <input id="email" type="email" placeholder="johnross123@email.com" name="email" required>
+                </div>
 
-            <section class="login-content">
+                <div class="login-form-group">
+                    <label for="password">Password <span class="asterisk">*</span></label>
+                    <input id="password" type="password" placeholder="******" name="password" required>
+                </div>
 
-                <form class="login-form" method="POST" action="/login">
-                    <div class="login-form-group">
-                        <label>Email <span class="asterisk">*</span></label>
-                        <input type="email" placeholder="johnross123@email.com" name="email" required>
-                    </div>
+                <div>
+                    <button type="submit">Log in</button>
+                </div>
 
-                    <div class="login-form-group">
-                        <label>Password <span class="asterisk">*</span></label>
-                        <input type="password" placeholder="******" name="password" required>
-                    </div>
-
-                    <div>
-                        <button type="submit">Log in</button>
-                    </div>
-
-                    <p class="signup-link">New here? <a href="/signup">Create an account</a></p>
-                </form>
-            </section>
-
-        </div>
+                <p class="signup-link">New here? <a href="/signup">Create an account</a></p>
+            </form>
+        </section>
 
     </div>
 
-    {% endblock %}
+</div>
 
-</body>
-
-</html>
+{% endblock %}

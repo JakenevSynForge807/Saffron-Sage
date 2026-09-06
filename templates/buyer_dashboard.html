@@ -9,22 +9,33 @@
         <section class="buyer-dashboard-top">
             <h2>TODAY'S KITCHEN</h2>
             <h1>Browse Dishes</h1>
-            <p>Every dish from every seller. Click order to add it.</p>
+            <p>Every dish from every seller. Add dishes to your cart.</p>
         </section>
 
         <div class="buyer-dashboard-content-wrapper">
 
+            {% if seller_dishes %}
+
+            {% for dish in seller_dishes %}
             <section class="buyer-dashboard-content">
                 <p>🍽️</p>
-                <h2>Pan-Seared Sea Bass</h2>
-                <h3>£18.00</h3>
-                <p>by The Olive Kitchen</p>
+                <h2>{{dish["dishname"]}}</h2>
+                <h3>£{{ "%.2f"|format(dish["dishprice"]) }}</h3>
+                <p>{{dish["seller"]}}</p>
 
-                <form class="buyer-dashboard-form">
-                    <input type="number" name="quantity" min="1" value="1">
-                    <button type="submit">Order</button>
+                <form class="buyer-dashboard-form" method="POST" action="/cart/add/{{dish['id']}}">
+                    <input type="number" name="quantity" min="1" max="20" value="1" required>
+                    <button type="submit">Add to Cart</button>
                 </form>
+
             </section>
+            {% endfor %}
+
+            {% else %}
+
+            <p>No dishes yet.</p>
+
+            {% endif %}
 
         </div>
 

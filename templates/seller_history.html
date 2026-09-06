@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="seller-dashboard-page">
+    <div class="seller-dashboard">
+        <section class="seller-dashboard-top">
+            <h2>YOUR ACTIVITY</h2>
+            <h1>Order History</h1>
+            <p>All your orders, including completed and cancelled orders. Times are shown in UTC.</p>
+            <a class="action-details seller-history-link" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+        </section>
+        <div class="seller-history-table">
+            <table>
+                <thead><tr><th>ORDER #</th><th>ORDERED AT (UTC)</th><th>BUYER</th><th>DISHES</th><th>QTY</th><th>TOTAL</th><th>STATUS</th><th>DETAILS</th></tr></thead>
+                <tbody>
+                {% for order in my_orders %}
+                <tr>
+                    <td>{{ order['id'] }}</td>
+                    <td>{{ order['created_at'] or 'Date unavailable (older order)' }}</td>
+                    <td>{{ order['buyer'] }}</td><td>{% include "order_items.html" %}</td>
+                    <td>{{ order['quantity'] }}</td><td>&pound;{{ '%.2f'|format(order['total']) }}</td>
+                    <td><span class="status-badge {{ order['status'] }}">{{ order['status']|upper }}</span></td>
+                    <td><button type="button" class="action-details" data-dialog="order-details-{{ order['id'] }}" aria-haspopup="dialog">View Details</button></td>
+                </tr>
+                {% else %}<tr><td colspan="8">No orders yet.</td></tr>{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% include 'order_details.html' %}
+{% endblock %}
