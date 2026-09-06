@@ -9,31 +9,34 @@
         <section class="seller-dashboard-top">
             <h2>SELLER AREA</h2>
             <h1>Your Dashboard</h1>
-            <p>Manage your dishes and every order that comes in.</p>
+            <p>Manage your dishes and active orders. Completed and cancelled orders are kept in your history.</p>
+            <a class="action-details seller-history-link" href="{{ url_for('seller_history') }}">Order History</a>
         </section>
+
 
         <section class="seller-dashboard-content">
 
             <div class="seller-dashboard-content-top">
                 <div class="seller-dashboard-content-group">
-                    <p>4</p>
+                    <p>{{totalDishes}}</p>
                     <p>DISHES LISTED</p>
                 </div>
 
                 <div class="seller-dashboard-content-group">
-                    <p>2</p>
+                    <p>{{pendingCount}}</p>
                     <p>PENDING ORDERS</p>
                 </div>
 
                 <div class="seller-dashboard-content-group">
-                    <p>1</p>
+                    <p>{{acceptedCount}}</p>
                     <p>IN PROGRESS</p>
                 </div>
 
                 <div class="seller-dashboard-content-group">
-                    <p>£62.50</p>
+                    <p>&pound;{{ "%.2f"|format(completedSales) }}</p>
                     <p>COMPLETED SALES</p>
                 </div>
+
             </div>
 
             <div class="seller-dashboard-content-bottom">
@@ -46,13 +49,13 @@
                     <form class="seller-dashboard-form" method="POST" action="/seller/add">
 
                         <div class="dashboard-form-group">
-                            <label>Dish name</label>
-                            <input type="text" name="dishname" placeholder="e.g. Pan-Seared Sea Bass" required>
+                            <label for="dishname">Dish name</label>
+                            <input id="dishname" type="text" name="dishname" placeholder="e.g. Pan-Seared Sea Bass" required>
                         </div>
 
                         <div class="dashboard-form-group">
-                            <label>Price (£)</label>
-                            <input type="text" name="dishprice" placeholder="18.00" required>
+                            <label for="dishprice">Price (£)</label>
+                            <input id="dishprice" type="number" min="0.01" max="999999.99" step="0.01" name="dishprice" placeholder="18.00" required>
                         </div>
 
                         <button type="submit">Add Dish</button>
@@ -79,7 +82,7 @@
 
                             <tr>
                                 <td>{{dish["dishname"]}}</td>
-                                <td>£{{dish["dishprice"]}}</td>
+                                <td>£{{ "%.2f"|format(dish["dishprice"]) }}</td>
                                 <td>
                                     <form method="POST" action="/seller/delete/{{dish['id']}}">
                                         <button type="submit" class="delete-btn">
@@ -107,38 +110,73 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>ORDER #</th>
                                 <th>BUYER</th>
-                                <th>DISH</th>
+                                <th>DISHES</th>
                                 <th>QTY</th>
                                 <th>STATUS</th>
                                 <th>ACTION</th>
+                                <th>ORDER DETAILS</th>
                             </tr>
                         </thead>
 
                         <tbody>
+                            {% for order in my_orders %}
+
                             <tr>
-                                <td>Aisha</td>
-                                <td>Pan-Seared Sea Bass</td>
-                                <td>1</td>
+                                <td>{{order["id"]}}<small class="order-date">{{ order["created_at"] ~ " UTC" if order["created_at"] else "Date unavailable" }}</small></td>
+                                <td>{{order["buyer"]}}</td>
+                                <td>{% include "order_items.html" %}</td>
+                                <td>{{order["quantity"]}}</td>
                                 <td>
-                                    <span class="status-pending">
-                                        Pending
+                                    <span class="status-badge {{order['status']}}">
+                                        {{order["status"]|upper}}
                                     </span>
                                 </td>
                                 <td>
-                                    <button type="button" class="action-accept">
-                                        Accept
-                                    </button>
+                                    {% if order["status"] == "pending" %}
+                                    <div class="order-actions">
+                                        <form method="POST" action="/seller/accept/{{order['id']}}">
+                                            <button type="submit" class="action-accept" aria-label="Accept order">
+                                                ✅
+                                            </button>
+                                        </form>
+
+                                        <form method="POST" action="/seller/cancel/{{order['id']}}">
+                                            <button type="submit" class="action-cancel" aria-label="Cancel order">
+                                                ❌
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    {% elif order["status"] == "accepted" %}
+                                    <form method="POST" action="/complete/{{order['id']}}">
+                                        <button type="submit" class="action-complete">
+                                            Complete
+                                        </button>
+                                    </form>
+
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <button type="button" class="action-details" data-dialog="order-details-{{ order['id'] }}" aria-haspopup="dialog">View Details</button>
                                 </td>
                             </tr>
+
+                            {% else %}
+
+                            <tr>
+                                <td colspan="7" style="text-align: center;">No active orders. Completed and cancelled orders are in Order History.</td>
+                            </tr>
+
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </section>
-
     </div>
 </div>
 
+{% include 'order_details.html' %}
 {% endblock %}

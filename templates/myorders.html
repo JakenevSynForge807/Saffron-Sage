@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="my-orders-page">
+
+    <div class="my-orders">
+
+        <section class="my-orders-top">
+            <h2>YOUR ACTIVITY</h2>
+            <h1>My Orders</h1>
+            <p>Track each order's status. Sellers update it as they prepare your food.</p>
+        </section>
+
+        <section class="my-orders-content">
+
+            <div class="order-history">
+                <div class="order-history-box-header">
+                    <h1>Order History</h1>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ORDER / DISHES</th>
+                            <th>SELLER</th>
+                            <th>QTY</th>
+                            <th>PRICE</th>
+                            <th>STATUS</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% if orders %}
+
+                        {% for order in orders %}
+
+                        <tr>
+                            <td><strong>Order #{{ order["id"] }}</strong>{% include "order_items.html" %}<small class="order-date">{{ order["created_at"] ~ " UTC" if order["created_at"] else "Date unavailable (older order)" }}</small></td>
+                            <td>{{order["seller"]}}</td>
+                            <td>{{order["quantity"]}}</td>
+                            <td>£{{ "%.2f"|format(order["total"]) }}</td>
+                            <td>
+                                <span class="status-badge {{order['status']}}">
+                                    {{order["status"]|upper}}
+                                </span>
+                            </td>
+                            <td>
+                                {% if order["status"] == "pending" %}
+
+                                <form method="POST" action="/order/cancel/{{order['id']}}">
+                                    <button type="submit" class="cancel-btn">
+                                        Cancel Order
+                                    </button>
+                                </form>
+
+                                {% else %}
+
+                                -
+
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                        {% else %}
+
+                        <tr>
+                            <td colspan="6" style="text-align: center;">
+                                No orders yet
+                            </td>
+                        </tr>
+
+                        {% endif %}
+
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>Total £{{ "%.2f"|format(total) }}</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+
+{% endblock %}

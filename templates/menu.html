@@ -1,57 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saffron & Sage - Menu</title>
+{% block content %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+<section class="menu">
+    <div class="menu-top">
+        <h3>OUR KITCHEN</h3>
+        <h2>Full Menu</h2>
+    </div>
 
-<body>
-    {% extends "base.html" %}
+    <table class="menu-table">
+        <thead>
+            <tr>
+                <th>DISH</th>
+                <th>PRICE</th>
+            </tr>
+        </thead>
 
-    {% block content %}
+        <tbody>
+            {% for dish in dishes %}
+            <tr class="even dish">
+                <td><span class="dish-name">{{ dish['dishname'] }}</span><br>
+                    <span class="ingredients">{{ dish['seller'] }}</span></td>
+                <td class="price">&pound;{{ "%.2f"|format(dish['dishprice']) }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="2">No dishes have been listed yet.</td></tr>
+            {% endfor %}
+        </tbody>
 
-    <section class="menu">
-        <div class="menu-top">
-            <h3>OUR KITCHEN</h3>
-            <h2>Full Menu</h2>
-        </div>
+    </table>
 
-        <table class="menu-table">
-            <thead>
-                <tr>
-                    <th>DISH</th>
-                    <th>PRICE</th>
-                </tr>
-            </thead>
+</section>
 
-            <tbody>
-                {% for category, dishes in dishes.items() %}
-
-                <tr class="table-subheading">
-                    <td colspan="2">{{category}}</td>
-                </tr>
-
-                {% for dish in dishes %}
-
-                <tr class="even dish">
-                    <td><span class="dish-name">{{dish.name}}</span><br> <span class="ingredients">{{dish.desc}}</span>
-                    </td>
-                    <td class="price">£{{dish.price}}</td>
-                </tr>
-
-                {% endfor %}
-                {% endfor %}
-            </tbody>
-
-        </table>
-
-    </section>
-
-    {% endblock %}
-</body>
-
-</html>
+{% endblock %}

@@ -1,86 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saffron & Sage - Sign up</title>
+{% block content %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+<div class="signup-page">
 
-<body>
-    {% extends "base.html" %}
+    <div class="auth">
 
-    {% block content %}
+        <section class="signup-top">
+            <h3>🌿Create account</h3>
+            <p>Join the marketplace</p>
+        </section>
 
-    <div class="signup-page">
 
-        <div class="auth">
 
-            <section class="signup-top">
-                <h3>🌿Create account</h3>
-                <p>Join the marketplace</p>
-            </section>
+        <section class="signup-content">
+            <form class="signup-form" method="POST" action="/signup">
+                <div class="signup-form-group">
+                    <label for="fullname">Full name <span class="asterisk">*</span></label>
+                    <input id="fullname" type="text" placeholder="John Ross" name="fullname" required>
+                </div>
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% for category, message in messages %}
-            <p style="color: green; text-align: center;">{{ message }}</p>
-            {% endfor %}
-            {% endwith %}
+                <div class="signup-form-group">
+                    <label for="email">Email <span class="asterisk">*</span></label>
+                    <input id="email" type="email" placeholder="johnross123@email.com" name="email" required>
+                </div>
 
-            <section class="signup-content">
-                <form class="signup-form" method="POST" action="/signup">
-                    <div class="signup-form-group">
-                        <label>Full name <span class="asterisk">*</span></label>
-                        <input type="text" placeholder="John Ross" name="fullname" required>
+                <div class="signup-form-group">
+                    <label for="password">Password <span class="asterisk">*</span></label>
+                    <input id="password" type="password" minlength="6" placeholder="At least 6 characters" name="password" required>
+                </div>
+
+                <p class="password-security">Use 6+ characters. We store it scrambled (hashed) — never as plain
+                    text.</p>
+
+                <div class="signup-form-group-bottom">
+                    <label class="signup-bottom-heading">I want to...<span class="asterisk">*</span></label>
+
+                    <div class="roles">
+                        <label>
+                            <input type="radio" name="role" value="buyer" required>
+                            <div class="ic">🛒</div>
+                            <b>Buy food</b>
+                            <small>Browse &amp; order</small>
+                        </label>
+                        <label>
+                            <input type="radio" name="role" value="seller" required>
+                            <div class="ic">🍳</div>
+                            <b>Sell food</b>
+                            <small>List &amp; fulfil</small>
+                        </label>
                     </div>
+                </div>
 
-                    <div class="signup-form-group">
-                        <label>Email <span class="asterisk">*</span></label>
-                        <input type="email" placeholder="johnross123@email.com" name="email" required>
-                    </div>
+                <div>
+                    <button type="submit">Create account</button>
+                </div>
 
-                    <div class="signup-form-group">
-                        <label>Password <span class="asterisk">*</span></label>
-                        <input type="password" placeholder="At least 6 characters" name="password" required>
-                    </div>
-
-                    <p class="password-security">Use 6+ characters. We store it scrambled (hashed) — never as plain
-                        text.</p>
-
-                    <div class="signup-form-group-bottom">
-                        <label class="signup-bottom-heading">I want to...<span class="asterisk">*</span></label>
-
-                        <div class="roles">
-                            <label>
-                                <input type="radio" name="role" value="buyer">
-                                <div class="ic">🛒</div>
-                                <b>Buy food</b>
-                                <small>Browse &amp; order</small>
-                            </label>
-                            <label>
-                                <input type="radio" name="role" value="seller">
-                                <div class="ic">🍳</div>
-                                <b>Sell food</b>
-                                <small>List &amp; fulfil</small>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button type="submit">Create account</button>
-                    </div>
-
-                    <p class="login-link">Already have one? <a href="/login">Log in</a></p>
-                </form>
-            </section>
-
-        </div>
+                <p class="login-link">Already have one? <a href="/login">Log in</a></p>
+            </form>
+        </section>
 
     </div>
 
-    {% endblock %}
-</body>
+</div>
 
-</html>
+{% endblock %}

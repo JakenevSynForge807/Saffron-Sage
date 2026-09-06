@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="checkout-page">
+
+    <div class="checkout">
+
+        <section class="checkout-top">
+            <h2>ALMOST THERE</h2>
+            <h1>Checkout</h1>
+            <p>Confirm your delivery details and place your order.</p>
+        </section>
+
+        <div class="checkout-content">
+
+            <section class="checkout-delivery">
+
+                <div class="checkout-box-header">
+                    <h2>Delivery details</h2>
+                </div>
+
+                <form class="checkout-form" action="/checkout" method="POST">
+
+                    <div class="checkout-form-group">
+                        <label for="fullname">Full name <span class="asterisk">*</span></label>
+                        <input id="fullname" type="text" placeholder="John Ross" name="fullname" required>
+                    </div>
+
+                    <div class="checkout-form-group">
+                        <label for="phone">Phone <span class="asterisk">*</span></label>
+                        <input id="phone" type="tel" placeholder="07..." name="phone" required>
+                    </div>
+
+                    <div class="checkout-form-group">
+                        <label for="deliveryAddress">Delivery address <span class="asterisk">*</span></label>
+                        <textarea id="deliveryAddress" placeholder="Flat, street, city, postcode" name="deliveryAddress" required></textarea>
+                    </div>
+
+                    <div class="checkout-form-group">
+                        <label for="notes">Notes for the courier</label>
+                        <input id="notes" type="text" placeholder="e.g. Leave with concierge (optional)" name="notes">
+                    </div>
+
+                    <div class="checkout-form-group">
+                        <label>Payment method <span class="asterisk">*</span></label>
+
+                        <div class="checkout-payment-options">
+
+                            <label class="checkout-payment-option">
+                                <input type="radio" name="paymentMethod" value="cash" required>
+                                <span>Cash on delivery</span>
+                            </label>
+
+                            <label class="checkout-payment-option">
+                                <input type="radio" name="paymentMethod" value="card" required>
+                                <span>Card on delivery</span>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <button type="submit">Buy Now</button>
+
+                </form>
+
+            </section>
+
+            <section class="checkout-summary">
+
+                <div class="checkout-box-header">
+                    <h2>Order summary</h2>
+                </div>
+
+                {% if items %}
+
+                <div class="checkout-summary-content">
+
+                    {% for item in items %}
+
+                    <div class="checkout-item">
+                        <p>{{item["dishname"]}} <span>x {{item["quantity"]}}</span></p>
+                        <p>£{{ "%.2f"|format(item["dishprice"] * item["quantity"]) }}</p>
+                    </div>
+
+                    {% endfor %}
+
+                    <div class="checkout-summary-divider"></div>
+
+                    <div class="checkout-summary-row">
+                        <p>Subtotal</p>
+                        <span>£{{ "%.2f"|format(subtotal) }}</span>
+                    </div>
+
+                    <div class="checkout-summary-row">
+                        <p>Delivery fee</p>
+                        <span>£{{ "%.2f"|format(deliveryFee) }}</span>
+                    </div>
+
+                    <div class="checkout-summary-divider"></div>
+
+                    <div class="checkout-total">
+                        <h2>Total</h2>
+                        <h2>£{{ "%.2f"|format(total) }}</h2>
+                    </div>
+
+                    <a href="/yourcart" class="checkout-edit-cart">← Edit cart</a>
+
+                </div>
+
+                {% else %}
+
+                <p style="text-align: center; padding: 20px;">No orders have been created</p>
+
+                {% endif %}
+
+            </section>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

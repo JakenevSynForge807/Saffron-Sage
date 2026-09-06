@@ -36,8 +36,32 @@ conn.executescript("""
         dishprice REAL,
         sellerid INTEGER
     );
+    
+    CREATE TABLE IF NOT EXISTS cartItems (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        dishid INTEGER,
+        buyerid INTEGER,
+        quantity INTEGER
+    );
+    
+    CREATE TABLE IF NOT EXISTS orderTable (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        dishid INTEGER,
+        buyerid INTEGER,
+        quantity INTEGER,
+        fullname TEXT,
+        phone INTEGER,
+        deliveryAddress TEXT,
+        notes TEXT,
+        paymentMethod TEXT,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        order_group_id INTEGER,
+        status TEXT DEFAULT 'pending'        
+    )
     """)
 
+from app import ensure_order_timestamps
+ensure_order_timestamps(conn)
 conn.commit(); conn.close()
 
 print("Database created!")

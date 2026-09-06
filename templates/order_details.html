@@ -1,0 +1,29 @@
+{% for order in my_orders %}
+<dialog class="order-details-modal" id="order-details-{{ order['id'] }}" aria-labelledby="order-title-{{ order['id'] }}">
+    <div class="order-details-header">
+        <div><p>ORDER DETAILS</p><h2 id="order-title-{{ order['id'] }}">Order #{{ order['id'] }}</h2></div>
+        <form method="dialog"><button class="modal-close" aria-label="Close order details" autofocus>&times;</button></form>
+    </div>
+    <dl class="order-details-list">
+        <dt>Ordered at (UTC)</dt><dd>{{ order["created_at"] or "Date unavailable (older order)" }}</dd>
+        <dt>Recipient</dt><dd>{{ order['recipient'] or order['buyer'] }}</dd>
+        <dt>Phone</dt><dd>{{ order['phone'] or 'Not provided' }}</dd>
+        <dt>Delivery address</dt><dd>{{ order['deliveryAddress'] or 'Not provided' }}</dd>
+        <dt>Delivery notes</dt><dd>{{ order['notes'] or 'No notes provided' }}</dd>
+        <dt>Payment method</dt><dd>{{ (order['paymentMethod'] or 'Not provided')|replace('_', ' ')|title }}</dd>
+        <dt>Dish &amp; quantity</dt><dd>{% include "order_items.html" %}</dd>
+    </dl>
+</dialog>
+{% endfor %}
+<script>
+    document.querySelectorAll('[data-dialog]').forEach(button => {
+        button.addEventListener('click', () => document.getElementById(button.dataset.dialog).showModal());
+    });
+    document.querySelectorAll('.order-details-modal').forEach(dialog => {
+        dialog.addEventListener('click', event => {
+            const rect = dialog.getBoundingClientRect();
+            if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right ||
+                event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
+        });
+    });
+</script>
