@@ -45,7 +45,7 @@
             {% elif session.role == "admin" %}
 
             {% elif session.role == "seller" %}
-            <a href="{{ url_for('seller_history') }}" class="{{ 'current' if current_path == '/seller/history' else '' }}">Order History</a>
+            <a href="{{ url_for('seller.seller_history') }}" class="{{ 'current' if current_path == '/seller/history' else '' }}">Order History</a>
 
             {% endif %}
 
