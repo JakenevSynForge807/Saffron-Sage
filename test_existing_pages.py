@@ -48,6 +48,22 @@ class ExistingPagesTests(unittest.TestCase):
         self.assertIn('href="/reservations"', html)
         self.assertIn('Test Soup', self.client.get('/menu').get_data(as_text=True))
         self.assertEqual(self.client.get('/reservations').get_data(as_text=True).count('<html'), 1)
+    def test_vector_store_sync_does_not_block_health_or_first_request(self):
+        module.app.config.pop('VECTOR_STORE_INITIALIZED', None)
+        module.app.config.pop('VECTOR_STORE_SYNC_STARTED', None)
+        module.app.config['TESTING'] = False
+        try:
+            with patch.object(module, 'Thread') as thread_class:
+                self.assertEqual(self.client.head('/').status_code, 200)
+                thread_class.assert_not_called()
+
+                self.assertEqual(self.client.get('/').status_code, 200)
+                thread_class.assert_called_once()
+                thread_class.return_value.start.assert_called_once()
+        finally:
+            module.app.config['TESTING'] = True
+            module.app.config.pop('VECTOR_STORE_INITIALIZED', None)
+            module.app.config.pop('VECTOR_STORE_SYNC_STARTED', None)
     def test_cart_checkout_and_seller_flow(self):
         self.login()
         self.assertEqual(self.client.post('/checkout', data={}).status_code, 302)
