@@ -2044,6 +2044,328 @@ body {
     .reservation-form { margin-left: 16px; margin-right: 16px; padding: 20px; }
 }
 
+/* AI Assistant */
+.ai-assistant-page {
+    min-height: calc(100vh - 220px);
+    padding: 50px;
+    background: #f2f6f3;
+}
+
+.ai-assistant {
+    width: 80%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.ai-assistant-top h2 {
+    color: #c9a227;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.ai-assistant-top h1 {
+    color: #284a38;
+    font-size: 33px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.ai-assistant-top p {
+    color: #5f817e;
+    font-size: 15px;
+    margin-bottom: 35px;
+}
+
+.ai-assistant-content {
+    display: grid;
+    grid-template-columns: 230px minmax(0, 760px);
+    gap: 28px;
+    align-items: start;
+    max-width: 1030px;
+    margin: 0 auto;
+}
+
+.ai-chat-sidebar {
+    background: #fff;
+    border: 1px solid #dce8df;
+    border-radius: 14px;
+    padding: 18px 12px;
+    position: sticky;
+    top: 20px;
+}
+
+.ai-chat-sidebar-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0 6px 14px;
+    border-bottom: 1px solid #e7eee9;
+}
+
+.ai-chat-sidebar-heading h2 {
+    color: #5f716c;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.ai-new-chat {
+    color: #21633d;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.ai-new-chat:hover { color: #d16c00; }
+
+.ai-chat-list {
+    list-style: none;
+    margin: 10px 0 0;
+    max-height: 390px;
+    overflow-y: auto;
+}
+
+.ai-chat-list-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 8px;
+    margin-bottom: 3px;
+}
+
+.ai-chat-list-item.is-active { background: #eef5f0; }
+
+.ai-chat-link {
+    color: #284a38;
+    flex: 1;
+    min-width: 0;
+    padding: 10px 6px 10px 8px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.ai-chat-link span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ai-delete-chat {
+    background: transparent;
+    border: 0;
+    color: #8a9a91;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    padding: 7px 8px;
+}
+
+.ai-delete-chat:hover { color: #b13c3c; }
+
+.ai-delete-chat:focus-visible,
+.ai-new-chat:focus-visible,
+.ai-chat-link:focus-visible {
+    outline: 2px solid #21633d;
+    outline-offset: 2px;
+}
+
+.ai-conversation { min-width: 0; }
+
+.ai-messages {
+    max-height: min(52vh, 540px);
+    overflow-y: auto;
+    overscroll-behavior: auto;
+    padding: 4px 14px 4px 0;
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+}
+
+.ai-no-chat {
+    background: #fff;
+    border-radius: 16px;
+    padding: 50px 25px;
+    text-align: center;
+    box-shadow: 0 4px 18px rgba(30, 58, 47, .08);
+}
+
+.ai-no-chat span { font-size: 38px; }
+
+.ai-no-chat h2 {
+    color: #284a38;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.ai-no-chat p {
+    color: #5f817e;
+    font-size: 15px;
+    margin-bottom: 18px;
+}
+
+.ai-welcome {
+    background: #fff;
+    border-radius: 16px;
+    padding: 35px 25px;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 18px rgba(30, 58, 47, .08);
+}
+
+.ai-welcome span {
+    font-size: 38px;
+}
+
+.ai-welcome h2 {
+    color: #284a38;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.ai-welcome p {
+    color: #5f817e;
+    font-size: 15px;
+}
+
+.ai-user-message,
+.ai-assistant-message {
+    width: 94%;
+    padding: 18px 22px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    overflow-wrap: anywhere;
+}
+
+.ai-user-message:last-child,
+.ai-assistant-message:last-child {
+    scroll-margin-bottom: 12px;
+}
+
+.ai-user-message {
+    background: #e2eefb;
+    margin-left: auto;
+}
+
+.ai-assistant-message {
+    background: #fff;
+    box-shadow: 0 4px 18px rgba(30, 58, 47, .08);
+}
+
+.ai-user-message h2,
+.ai-assistant-message h2 {
+    color: #5f716c;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.ai-user-message p,
+.ai-assistant-message p {
+    white-space: pre-wrap;
+}
+
+.ai-assistant-form label {
+    display: block;
+    color: #284a38;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.ai-assistant-form textarea {
+    width: 100%;
+    min-height: 110px;
+    border: 1.5px solid #cdd9d3;
+    border-radius: 10px;
+    padding: 12px;
+    background: #fbfdfc;
+    color: #2d3748;
+    font-family: inherit;
+    font-size: 15px;
+    resize: vertical;
+}
+
+.ai-status {
+    color: #586d64;
+    font-size: 13px;
+    margin: 8px 0 16px;
+}
+
+.ai-error {
+    color: #b13c3c;
+    margin-top: 8px;
+}
+
+.ai-assistant-form button {
+    background: #c9a227;
+    color: #1e3a2f;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.ai-assistant-form button:hover {
+    background: #d16c00;
+}
+
+.ai-assistant-form button:disabled {
+    cursor: wait;
+    opacity: .65;
+}
+
+.ai-assistant-form textarea:focus-visible,
+.ai-assistant-form button:focus-visible {
+    outline: 2px solid #21633d;
+    outline-offset: 3px;
+}
+
+@media (max-width: 800px) {
+    .ai-assistant-page {
+        padding: 24px 16px;
+    }
+
+    .ai-assistant {
+        width: 100%;
+    }
+
+    .ai-assistant-content {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .ai-chat-sidebar {
+        position: static;
+    }
+
+    .ai-chat-list {
+        display: flex;
+        gap: 6px;
+        max-height: none;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 2px;
+    }
+
+    .ai-chat-list-item {
+        flex: 0 0 150px;
+        margin: 0;
+    }
+
+    .ai-welcome {
+        padding: 25px 18px;
+    }
+
+    .ai-messages {
+        max-height: 50vh;
+        padding-right: 8px;
+    }
+}
+
 /* Let long dish names wrap inside their own card, row or summary. */
 .buyer-dashboard-content-wrapper { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .checkout-content { grid-template-columns: repeat(2, minmax(0, 1fr)); }

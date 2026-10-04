@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, make_response
 from functools import wraps
+from threading import Lock
 from db import db, ensure_order_timestamps
 from routes.auth import auth
 from routes.main import main
@@ -11,10 +12,28 @@ from controllers.order_controller import get_orders
 app = Flask(__name__)
 app.secret_key = 'bananas'
 app.extensions["db_factory"] = lambda: db()
+vector_store_sync_lock = Lock()
 app.register_blueprint(auth)
 app.register_blueprint(main)
 app.register_blueprint(buyer)
 app.register_blueprint(seller)
+
+@app.before_request
+def initialize_vector_store():
+    if app.config.get("VECTOR_STORE_INITIALIZED"):
+        return
+
+    with vector_store_sync_lock:
+        if app.config.get("VECTOR_STORE_INITIALIZED"):
+            return
+        try:
+            if not app.testing:
+                from knowledge_base import sync_all
+                sync_all()
+        except Exception:
+            app.logger.exception("Initial vector-store synchronization failed.")
+        finally:
+            app.config["VECTOR_STORE_INITIALIZED"] = True
 
 @app.before_request
 def check_session():

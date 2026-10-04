@@ -1,11 +1,32 @@
 from flask import current_app, render_template, request, redirect, url_for, flash, session
 from datetime import datetime
+from db import ensure_chat_tables
 
 def get_db():
     return current_app.extensions["db_factory"]()
 
 def home():
     return render_template("index.html")
+
+def new_ai_chat():
+    conn = get_db()
+    ensure_chat_tables(conn)
+    cursor = conn.execute("INSERT INTO ai_chats (user_id) VALUES (?)", (session["id"],))
+    conn.commit()
+    chat_id = cursor.lastrowid
+    conn.close()
+    return redirect(url_for("main.ai_assistant", chat_id=chat_id))
+
+def delete_ai_chat(chat_id):
+    conn = get_db()
+    ensure_chat_tables(conn)
+    chat = conn.execute("SELECT id FROM ai_chats WHERE id = ? AND user_id = ?", (chat_id, session["id"])).fetchone()
+    if chat:
+        conn.execute("DELETE FROM ai_messages WHERE chat_id = ?", (chat_id,))
+        conn.execute("DELETE FROM ai_chats WHERE id = ?", (chat_id,))
+        conn.commit()
+    conn.close()
+    return redirect(url_for("main.ai_assistant"))
 
 def menu(): 
     conn = get_db()
@@ -80,4 +101,3 @@ def contact():
         return redirect(url_for("main.contact"))
     
     return render_template("contact.html", contactMessage=contactMessage)
-

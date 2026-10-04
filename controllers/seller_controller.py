@@ -27,9 +27,21 @@ def add_dish():
                  Values(?, ?, ?)""",  
                  (dishname, dishprice, session["id"])
                 )  
-    
-    conn.commit(); conn.close()
-    flash("Dish added successfully.", "ok")
+    dish_id = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+    conn.commit()
+    conn.close()
+
+    if current_app.testing:
+        flash("Dish added successfully.", "ok")
+    else:
+        try:
+            from knowledge_base import sync_dishes_to_vector_store
+            sync_dishes_to_vector_store(dish_id=dish_id)
+        except Exception:
+            current_app.logger.exception("Unable to sync new dish %s to the vector store.", dish_id)
+            flash("Dish added, but the assistant could not sync it right now.", "bad")
+        else:
+            flash("Dish added successfully.", "ok")
     
     return redirect(url_for("dashboard"))
 

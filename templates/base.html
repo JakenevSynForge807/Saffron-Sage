@@ -34,7 +34,7 @@
         <div class="navlinks-logged-in">
 
             <a href="/dashboard" class="{{ 'current' if current_path == '/dashboard' else '' }}">Dashboard</a>
-            <span class="nav-coming-soon">AI Assistant</span>
+            <a href="{{ url_for('main.ai_assistant') }}" class="{{ 'current' if current_path == '/ai-assistant' else '' }}">AI Assistant</a>
 
             {% if session.role == "buyer" %}
 

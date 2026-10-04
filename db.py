@@ -17,9 +17,36 @@ def ensure_order_timestamps(conn):
         END""")
     conn.commit()
 
+def ensure_chat_tables(conn):
+    conn.executescript("""
+        CREATE TABLE IF NOT EXISTS ai_chats (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            title TEXT NOT NULL DEFAULT 'New chat',
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
+
+        CREATE TABLE IF NOT EXISTS ai_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            chat_id INTEGER NOT NULL,
+            role TEXT NOT NULL CHECK (role IN ('user', 'assistant')),
+            content TEXT NOT NULL,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (chat_id) REFERENCES ai_chats(id) ON DELETE CASCADE
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_ai_chats_user_updated
+            ON ai_chats(user_id, updated_at DESC);
+        CREATE INDEX IF NOT EXISTS idx_ai_messages_chat
+            ON ai_messages(chat_id, id);
+    """)
+    conn.commit()
+
 def db():
     conn = sqlite3.connect(Path(__file__).with_name("saffron.db"))
     conn.row_factory = sqlite3.Row
     ensure_order_timestamps(conn)
+    ensure_chat_tables(conn)
     
     return conn
