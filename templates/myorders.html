@@ -51,6 +51,7 @@
                                 {% if order["status"] == "pending" %}
 
                                 <form method="POST" action="/order/cancel/{{order['id']}}">
+                                    <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                     <button type="submit" class="cancel-btn">
                                         Cancel Order
                                     </button>

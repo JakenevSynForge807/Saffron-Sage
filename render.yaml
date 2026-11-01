@@ -1,0 +1,28 @@
+# Render Blueprint: Dashboard > New > Blueprint > pick this repository.
+services:
+  - type: web
+    name: saffron-sage
+    runtime: python
+    # A persistent disk needs a paid instance type; on the free plan the disk
+    # below is not available and all data is wiped on every deploy/restart.
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app -c gunicorn.conf.py
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.14.6
+      - key: SECRET_KEY
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false # entered by hand in the Render dashboard, never committed
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash
+      - key: GEMINI_FALLBACK_MODEL
+        value: gemini-3.5-flash-lite
+      - key: DATA_DIR
+        value: /var/data
+    disk:
+      name: saffron-data
+      mountPath: /var/data
+      sizeGB: 1

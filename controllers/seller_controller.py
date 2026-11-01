@@ -1,4 +1,5 @@
 from flask import current_app, render_template, request, redirect, url_for, flash, session
+from tasks import run_in_background
 from decimal import Decimal, InvalidOperation
 from controllers.order_controller import get_orders
 
@@ -32,16 +33,10 @@ def add_dish():
     conn.close()
 
     if current_app.testing:
-        flash("Dish added successfully.", "ok")
-    else:
-        try:
-            from knowledge_base import sync_dishes_to_vector_store
-            sync_dishes_to_vector_store(dish_id=dish_id)
-        except Exception:
-            current_app.logger.exception("Unable to sync new dish %s to the vector store.", dish_id)
-            flash("Dish added, but the assistant could not sync it right now.", "bad")
-        else:
-            flash("Dish added successfully.", "ok")
+        from knowledge_base import sync_dishes
+        run_in_background(sync_dishes, dish_id)
+    
+    flash("Dish added successfully", "ok")
     
     return redirect(url_for("dashboard"))
 
@@ -51,13 +46,20 @@ def delete_dish(id):
     result = conn.execute("""DELETE FROM dishesTable WHERE id = ? AND sellerid = ?
         AND NOT EXISTS (SELECT 1 FROM orderTable WHERE dishid = dishesTable.id)""",
         (id, session["id"]))
-    if result.rowcount:
+    
+    deleted = result.rowcount
+    
+    if deleted:
         conn.execute("DELETE FROM cartItems WHERE dishid = ?", (id,))
         flash("Dish removed successfully.", "ok")
     else:
         flash("This dish could not be deleted. Dishes with orders must be kept to preserve order history.", "bad")
     conn.commit()
     conn.close()
+    
+    if deleted:
+        from knowledge_base import remove_dish
+        run_in_background(remove_dish, id)
 
     return redirect(url_for("dashboard"))
 

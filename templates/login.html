@@ -11,11 +11,10 @@
             <p>Log in to your account</p>
         </section>
 
-
-
         <section class="login-content">
 
             <form class="login-form" method="POST" action="/login">
+                <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <div class="login-form-group">
                     <label for="email">Email <span class="asterisk">*</span></label>
                     <input id="email" type="email" placeholder="johnross123@email.com" name="email" required>

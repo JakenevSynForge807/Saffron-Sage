@@ -21,12 +21,15 @@
                 <nav>
                     <ul class="ai-chat-list">
                         {% for chat in chats %}
-                        <li class="ai-chat-list-item {{ 'is-active' if active_chat and chat.id == active_chat.id else '' }}">
+                        <li
+                            class="ai-chat-list-item {{ 'is-active' if active_chat and chat.id == active_chat.id else '' }}">
                             <a href="{{ url_for('main.ai_assistant', chat_id=chat.id) }}" class="ai-chat-link">
                                 <span>{{ chat.title }}</span>
                             </a>
                             <form method="POST" action="{{ url_for('main.delete_ai_chat', chat_id=chat.id) }}">
-                                <button class="ai-delete-chat" type="submit" aria-label="Delete {{ chat.title }}" title="Delete chat">&times;</button>
+                                <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="ai-delete-chat" type="submit" aria-label="Delete {{ chat.title }}"
+                                    title="Delete chat">&times;</button>
                             </form>
                         </li>
                         {% endfor %}
@@ -36,44 +39,48 @@
 
             <main class="ai-conversation">
                 {% if active_chat %}
-                    <div class="ai-messages" id="ai-messages" role="log" aria-live="polite" aria-label="Assistant conversation">
-                        {% if messages %}
-                        {% for message in messages %}
-                        <section class="{{ 'ai-user-message' if message.role == 'user' else 'ai-assistant-message' }}">
-                            <h2>{{ 'YOU' if message.role == 'user' else 'SAFFRON &amp; SAGE ASSISTANT' }}</h2>
-                            <p>{{ message.content }}</p>
-                        </section>
-                        {% endfor %}
-                        {% else %}
-                        <section class="ai-welcome">
-                            <span aria-hidden="true">&#127807;</span>
-                            <h2>What are you in the mood for?</h2>
-                            <p>Start with a favourite flavour, a dish you love or a question about the menu.</p>
-                        </section>
-                        {% endif %}
-                    </div>
-
-                    <form class="ai-assistant-form" id="ai-assistant-form" method="POST" action="{{ url_for('main.ai_assistant', chat_id=active_chat.id) }}">
-                        <input type="hidden" name="chat_id" value="{{ active_chat.id }}">
-                        <label for="question">Your question</label>
-                        <textarea id="question" name="question" rows="4" maxlength="2000" required
-                            aria-describedby="ai-status"
-                            placeholder="e.g. What's good for someone who likes spicy food?">{{ question if error else '' }}</textarea>
-
-                        {% if error %}
-                        <p class="ai-error" role="alert">{{ error }}</p>
-                        {% endif %}
-
-                        <p id="ai-status" class="ai-status" role="status">Ask about dishes, pairings or something new to try.</p>
-                        <button type="submit">Ask the assistant</button>
-                    </form>
-                {% else %}
-                    <section class="ai-no-chat">
-                        <span aria-hidden="true">&#127807;</span>
-                        <h2>No chat selected</h2>
-                        <p>Start a new chat to ask the assistant a question.</p>
-                        <a class="ai-new-chat" href="{{ url_for('main.new_ai_chat') }}">+ New chat</a>
+                <div class="ai-messages" id="ai-messages" role="log" aria-live="polite"
+                    aria-label="Assistant conversation">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <section class="{{ 'ai-user-message' if message.role == 'user' else 'ai-assistant-message' }}">
+                        <h2>{{ 'YOU' if message.role == 'user' else 'SAFFRON &amp; SAGE ASSISTANT' }}</h2>
+                        <p>{{ message.content }}</p>
                     </section>
+                    {% endfor %}
+                    {% else %}
+                    <section class="ai-welcome">
+                        <span aria-hidden="true">&#127807;</span>
+                        <h2>What are you in the mood for?</h2>
+                        <p>Start with a favourite flavour, a dish you love or a question about the menu.</p>
+                    </section>
+                    {% endif %}
+                </div>
+
+                <form class="ai-assistant-form" id="ai-assistant-form" method="POST"
+                    action="{{ url_for('main.ai_assistant', chat_id=active_chat.id) }}">
+                    <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="chat_id" value="{{ active_chat.id }}">
+                    <label for="question">Your question</label>
+                    <textarea id="question" name="question" rows="4" maxlength="2000" required
+                        aria-describedby="ai-status"
+                        placeholder="e.g. What's good for someone who likes spicy food?">{{ question if error else '' }}</textarea>
+
+                    {% if error %}
+                    <p class="ai-error" role="alert">{{ error }}</p>
+                    {% endif %}
+
+                    <p id="ai-status" class="ai-status" role="status">Ask about dishes, pairings or something new to
+                        try.</p>
+                    <button type="submit">Ask the assistant</button>
+                </form>
+                {% else %}
+                <section class="ai-no-chat">
+                    <span aria-hidden="true">&#127807;</span>
+                    <h2>No chat selected</h2>
+                    <p>Start a new chat to ask the assistant a question.</p>
+                    <a class="ai-new-chat" href="{{ url_for('main.new_ai_chat') }}">+ New chat</a>
+                </section>
                 {% endif %}
             </main>
         </div>
@@ -100,12 +107,24 @@
             button.disabled = true;
             status.textContent = 'Assistant is thinking...';
 
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 
+
             fetch(form.action, {
                 method: 'POST',
                 headers: { 'Accept': 'application/json' },
-                body: new FormData(form)
+                body: new FormData(form),
+                signal: controller.signal
             })
                 .then(function (response) {
+                    if (response.status == 401){
+                        window.location.href = "{{ url_for('auth.login') }}";
+                        throw new Error('Unauthorized. Redirecting to login.');
+                    }
+
+                    const isJson = (response.headers.get('content-type')||"")?.indexof('application/json')!==-1;
+                    if (!isJson) throw new Error('Invalid response from server. Please try again later.');
+
                     return response.json().then(function (data) {
                         if (!response.ok) throw new Error(data.error || 'Unable to send message.');
                         return data;
@@ -122,9 +141,12 @@
                     status.textContent = 'Your question has been answered. Ask another question whenever you like.';
                 })
                 .catch(function (error) {
-                    status.textContent = error.message;
+                    status.textContent = error.name==="AbortError"?
+                        'The request timed out. Please try again.' :
+                        error.message || 'An error occurred. Please try again.';
                 })
                 .finally(function () {
+                    clearTimeout(timeoutId);
                     button.disabled = false;
                     questionInput.focus();
                 });

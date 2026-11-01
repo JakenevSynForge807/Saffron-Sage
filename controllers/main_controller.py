@@ -1,6 +1,5 @@
 from flask import current_app, render_template, request, redirect, url_for, flash, session
 from datetime import datetime
-from db import ensure_chat_tables
 
 def get_db():
     return current_app.extensions["db_factory"]()
@@ -10,7 +9,6 @@ def home():
 
 def new_ai_chat():
     conn = get_db()
-    ensure_chat_tables(conn)
     cursor = conn.execute("INSERT INTO ai_chats (user_id) VALUES (?)", (session["id"],))
     conn.commit()
     chat_id = cursor.lastrowid
@@ -19,7 +17,6 @@ def new_ai_chat():
 
 def delete_ai_chat(chat_id):
     conn = get_db()
-    ensure_chat_tables(conn)
     chat = conn.execute("SELECT id FROM ai_chats WHERE id = ? AND user_id = ?", (chat_id, session["id"])).fetchone()
     if chat:
         conn.execute("DELETE FROM ai_messages WHERE chat_id = ?", (chat_id,))
