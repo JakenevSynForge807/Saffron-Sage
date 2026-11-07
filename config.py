@@ -15,7 +15,6 @@ EMBEDDING_MODEL = os.environ.get("GEMINI_MODEL", "gemini-embedding-001")
 GEMINI_TIMEOUT_SECONDS = max(10, int(os.environ.get("GEMINI_TIMEOUT_SECONDS", "25")))
 RAG_MAX_DISTANCE = float(os.environ.get("RAG_MAX_DISTANCE", "0.40"))
 CHAT_HISTORY_MESSAGES = int(os.environ.get("CHAT_HISTORY_MESSAGES", "10"))
-ASSISTANT_RATE_LIMIT = os.environment.get("ASSISTANT_RATE_LIMIT", "10 per minute:100 per day")
+ASSISTANT_RATE_LIMIT = os.environ.get("ASSISTANT_RATE_LIMIT", "10 per minute:100 per day")
 SECRET_KEY = os.environ.get("SECRET_KEY")
  
-
