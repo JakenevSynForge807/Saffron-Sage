@@ -13,7 +13,7 @@
         {% endif %}
 
         <form class="contact-form" method="POST" action="/contactus">
-            <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="contact-form-group">
                 <label for="name">Name</label>
                 <input id="name" type="text" placeholder="John Ross" name="name" required>

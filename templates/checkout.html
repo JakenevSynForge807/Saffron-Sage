@@ -21,7 +21,7 @@
                 </div>
 
                 <form class="checkout-form" action="/checkout" method="POST">
-                    <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="checkout-form-group">
                         <label for="fullname">Full name <span class="asterisk">*</span></label>
                         <input id="fullname" type="text" placeholder="John Ross" name="fullname" required>

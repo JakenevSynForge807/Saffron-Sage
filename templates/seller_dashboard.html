@@ -47,7 +47,7 @@
                     </div>
 
                     <form class="seller-dashboard-form" method="POST" action="/seller/add">
-                        <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                         <div class="dashboard-form-group">
                             <label for="dishname">Dish name</label>
@@ -86,7 +86,7 @@
                                 <td>£{{ "%.2f"|format(dish["dishprice"]) }}</td>
                                 <td>
                                     <form method="POST" action="/seller/delete/{{dish['id']}}">
-                                        <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <button type="submit" class="delete-btn">
                                             Delete
                                         </button>
@@ -139,14 +139,14 @@
                                     {% if order["status"] == "pending" %}
                                     <div class="order-actions">
                                         <form method="POST" action="/seller/accept/{{order['id']}}">
-                                            <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                             <button type="submit" class="action-accept" aria-label="Accept order">
                                                 ✅
                                             </button>
                                         </form>
 
                                         <form method="POST" action="/seller/cancel/{{order['id']}}">
-                                            <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                             <button type="submit" class="action-cancel" aria-label="Cancel order">
                                                 ❌
                                             </button>
@@ -155,7 +155,7 @@
 
                                     {% elif order["status"] == "accepted" %}
                                     <form method="POST" action="/complete/{{order['id']}}">
-                                        <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <button type="submit" class="action-complete">
                                             Complete
                                         </button>

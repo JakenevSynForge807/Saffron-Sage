@@ -13,7 +13,7 @@
 
         <section class="signup-content">
             <form class="signup-form" method="POST" action="/signup">
-                <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <div class="signup-form-group">
                     <label for="fullname">Full name <span class="asterisk">*</span></label>
                     <input id="fullname" type="text" placeholder="John Ross" name="fullname" required>

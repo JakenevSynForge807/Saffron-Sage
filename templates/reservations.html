@@ -12,7 +12,7 @@
         {% endif %}
 
         <form class="reservation-form" method="POST" action="/reservations">
-            <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="formatting">
                 <div class="form-group ">
                     <label for="first_name">First name <span class="asterisk">*</span></label>

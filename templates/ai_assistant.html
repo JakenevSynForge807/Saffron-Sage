@@ -27,7 +27,7 @@
                                 <span>{{ chat.title }}</span>
                             </a>
                             <form method="POST" action="{{ url_for('main.delete_ai_chat', chat_id=chat.id) }}">
-                                <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <button class="ai-delete-chat" type="submit" aria-label="Delete {{ chat.title }}"
                                     title="Delete chat">&times;</button>
                             </form>
@@ -59,7 +59,7 @@
 
                 <form class="ai-assistant-form" id="ai-assistant-form" method="POST"
                     action="{{ url_for('main.ai_assistant', chat_id=active_chat.id) }}">
-                    <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="chat_id" value="{{ active_chat.id }}">
                     <label for="question">Your question</label>
                     <textarea id="question" name="question" rows="4" maxlength="2000" required
