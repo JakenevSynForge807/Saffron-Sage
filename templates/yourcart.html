@@ -42,12 +42,14 @@
                             <td>£{{ "%.2f"|format(item["dishprice"]) }}</td>
                             <td>
                                 <form class="buyer-dashboard-form" method="POST" action="/cart/update/{{item['id']}}">
+                                    <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                     <input type="number" name="quantity" value="{{item['quantity']}}" min="1" max="20" onchange="this.form.submit()">
                                 </form>
                             </td>
                             <td>£{{ "%.2f"|format(item["dishprice"] * item["quantity"]) }}</td>
                             <td>
                                 <form method="POST" action="/cart/remove/{{item['id']}}">
+                                    <input> type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                     <button type="submit" class="delete-btn">
                                         Delete
                                     </button>
