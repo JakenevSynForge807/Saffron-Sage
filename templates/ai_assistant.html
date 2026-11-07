@@ -122,7 +122,7 @@
                         throw new Error('Unauthorized. Redirecting to login.');
                     }
 
-                    const isJson = (response.headers.get('content-type')||"")?.indexof('application/json')!==-1;
+                    const isJson = (response.headers.get('content-type') || '').includes('application/json');
                     if (!isJson) throw new Error('Invalid response from server. Please try again later.');
 
                     return response.json().then(function (data) {

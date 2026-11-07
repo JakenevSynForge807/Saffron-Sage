@@ -1,5 +1,5 @@
 import logging
-from threading import log
+from threading import Lock
 import httpx
 from google import genai
 from google.genai import types, errors
@@ -8,7 +8,7 @@ import config
 
 log = logging.getLogger(__name__)
 _client = None
-_client_lock = log.Lock()
+_client_lock = Lock()
 
 RETRYABLE_STATUS = {429, 500, 502, 503, 504}
 EMBED_BATCH_SIZE = 50
